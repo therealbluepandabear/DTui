@@ -1,7 +1,7 @@
 import std.stdio;
 import std.algorithm;
 
-class Cell {
+struct Cell {
 	int x;
 	int y;
 	char content;
