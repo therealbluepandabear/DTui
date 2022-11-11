@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/dtui
+dtui.so
+dtui.dylib
+dtui.dll
+dtui.a
+dtui.lib
+dtui-test-*
+*.exe
+*.o
+*.obj
+*.lst
