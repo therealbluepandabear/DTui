@@ -69,8 +69,11 @@ struct Label {
 	Cell[] toCells() {
 		Cell[] cells;
 
+		int loopCount = 0;
+
 		for (int x = origin.x; x < origin.x + text.length; ++x) {
-			cells ~= Cell(Coordinates(x, origin.y), text[x]);
+			cells ~= Cell(Coordinates(x, origin.y), text[loopCount]);
+			++loopCount;
 		}
 
 		return cells;
@@ -130,6 +133,6 @@ void main() {
 	canvas.height = 10;
 
 	canvas
-		.cacheLabel(Label("Hi", Coordinates(0, 3)))
+		.cacheLabel(Label("Hi", Coordinates(1, 3)))
 		.draw();
 }
