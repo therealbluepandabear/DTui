@@ -148,9 +148,8 @@ class Canvas {
 
 	private Cell[] cache;
 
-	Canvas cacheCells(Cell[] cells) {
+	void cacheCells(Cell[] cells) {
 		cache ~= cells;
-		return this;
 	}
 
 	void drawCache() {
