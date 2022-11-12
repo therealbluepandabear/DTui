@@ -1,15 +1,20 @@
 import std.stdio;
 import std.algorithm;
 
-struct Cell {
+struct Coordinates {
 	int x;
 	int y;
+}
+
+struct Cell {
+	Coordinates coordinates;
 	char content;
 }
 
 class Canvas {
 	private int width;
 	private int height;
+	private char background = ' ';
 
 	void draw(Cell[] cells) {
 		Cell[] cellsDrawn;
@@ -19,7 +24,7 @@ class Canvas {
 				bool cellFound = false;
 
 				foreach (cell; cells) {
-					if (cell.x == x && cell.y == y && !(cellsDrawn.canFind!(cell => cell.x == x && cell.y == y))) {
+					if (cell.coordinates.x == x && cell.coordinates.y == y && !(cellsDrawn.canFind!(cell => cell.coordinates.x == x && cell.coordinates.y == y))) {
 						write("*");
 						cellsDrawn ~= cell;
 						cellFound = true;
@@ -27,7 +32,7 @@ class Canvas {
 				}
 
 				if (!cellFound) {
-					write(" ");
+					write(background);
 				}
 			}
 
@@ -37,4 +42,11 @@ class Canvas {
 }
 
 void main() {
+	Cell cell = Cell(Coordinates(5, 5), '*');
+
+	Canvas canvas = new Canvas();
+	canvas.width = 10;
+	canvas.height = 10;
+
+	canvas.draw([cell]);
 }
