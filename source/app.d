@@ -118,6 +118,29 @@ class Column {
 	}
 }
 
+class Row {
+	private Canvas canvas = new Canvas();
+
+	private Coordinates cursor = Coordinates(0, 0);
+
+	void addRect(int width, int height) {
+		canvas.width += width + 1;
+		canvas.height += height + 1;
+
+		Coordinates to = cursor;
+		to.x += width;
+		to.y += height;
+
+		canvas.cacheCells(Rect(cursor, to, Colors.Red).toCells());
+
+		cursor = Coordinates(to.x + 1, 0);
+	}
+
+	void draw() {
+		canvas.drawCache();
+	}
+}
+
 class Canvas {
 	private int width;
 	private int height;
@@ -158,8 +181,8 @@ class Canvas {
 }
 
 void main() {
-	Column column = new Column();
-	column.addRect(10, 5);
-	column.addRect(10, 5);
-	column.draw();
+	Row row = new Row();
+	row.addRect(10, 5);
+	row.addRect(5, 2);
+	row.draw();
 }
