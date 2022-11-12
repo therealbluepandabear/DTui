@@ -95,6 +95,29 @@ struct Label {
 	}
 }
 
+class Column {
+	private Canvas canvas = new Canvas();
+
+	private Coordinates cursor = Coordinates(0, 0);
+
+	void addRect(int width, int height) {
+		canvas.width += width + 1;
+		canvas.height += height + 1;
+
+		Coordinates to = cursor;
+		to.x += width;
+		to.y += height;
+
+		canvas.cacheCells(Rect(cursor, to, Colors.Red).toCells());
+
+		cursor = Coordinates(0, to.y + 1);
+	}
+
+	void draw() {
+		canvas.drawCache();
+	}
+}
+
 class Canvas {
 	private int width;
 	private int height;
@@ -104,16 +127,6 @@ class Canvas {
 
 	Canvas cacheCells(Cell[] cells) {
 		cache ~= cells;
-		return this;
-	}
-
-	Canvas cacheRect(Rect rect) {
-		cache ~= rect.toCells();
-		return this;
-	}
-
-	Canvas cacheLabel(Label label) {
-		cache ~= label.toCells();
 		return this;
 	}
 
@@ -145,13 +158,8 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas();
-	canvas.width = 50;
-	canvas.height = 10;
-
-	canvas
-		.cacheRect(Rect(Coordinates(0, 0), Coordinates(20, 8), Color(0, 255, 2)))
-		.cacheLabel(Label("Hi", Coordinates(1, 3), Colors.Red))
-		.cacheLabel(Label("Hi", Coordinates(2, 4), Colors.Blue))
-		.drawCache();
+	Column column = new Column();
+	column.addRect(10, 5);
+	column.addRect(10, 5);
+	column.draw();
 }
