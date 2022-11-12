@@ -62,6 +62,21 @@ struct Rect {
 	}
 }
 
+struct Label {
+	string text;
+	Coordinates origin;
+
+	Cell[] toCells() {
+		Cell[] cells;
+
+		for (int x = origin.x; x < origin.x + text.length; ++x) {
+			cells ~= Cell(Coordinates(x, origin.y), 'H');
+		}
+
+		return cells;
+	}
+}
+
 class Canvas {
 	private int width;
 	private int height;
@@ -76,6 +91,11 @@ class Canvas {
 
 	Canvas cacheRect(Rect rect) {
 		cache ~= rect.toCells();
+		return this;
+	}
+
+	Canvas cacheLabel(Label label) {
+		cache ~= label.toCells();
 		return this;
 	}
 
@@ -110,7 +130,6 @@ void main() {
 	canvas.height = 10;
 
 	canvas
-		.cacheRect(Rect(Coordinates(0, 0), Coordinates(5, 5)))
-		.cacheRect(Rect(Coordinates(0, 6), Coordinates(9, 9)))
+		.cacheLabel(Label("Hi", Coordinates(0, 3)))
 		.draw();
 }
