@@ -70,7 +70,7 @@ struct Label {
 		Cell[] cells;
 
 		for (int x = origin.x; x < origin.x + text.length; ++x) {
-			cells ~= Cell(Coordinates(x, origin.y), 'H');
+			cells ~= Cell(Coordinates(x, origin.y), text[x]);
 		}
 
 		return cells;
