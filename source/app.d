@@ -31,6 +31,7 @@ struct Cell {
 struct Rect {
 	Coordinates from;
 	Coordinates to;
+	Color color;
 
 	Cell[] toCells() {
 		Cell[] cells;
@@ -46,7 +47,7 @@ struct Rect {
 				content = '─';
 			}
 
-			cells ~= Cell(Coordinates(x, this.from.y), content);
+			cells ~= Cell(Coordinates(x, this.from.y), content, color);
 		}
 
 		for (int x = from.x; x <= to.x; ++x) {
@@ -60,15 +61,15 @@ struct Rect {
 				content = '─';
 			}
 
-			cells ~= Cell(Coordinates(x, this.to.y), content);
+			cells ~= Cell(Coordinates(x, this.to.y), content, color);
 		}
 
 		for (int y = from.y + 1; y < to.y; ++y) {
-			cells ~= Cell(Coordinates(this.from.x, y), '│');
+			cells ~= Cell(Coordinates(this.from.x, y), '│', color);
 		}
 
 		for (int y = from.y + 1; y < to.y; ++y) {
-			cells ~= Cell(Coordinates(this.to.x, y), '│');
+			cells ~= Cell(Coordinates(this.to.x, y), '│', color);
 		}
 
 		return cells;
@@ -149,7 +150,8 @@ void main() {
 	canvas.height = 10;
 
 	canvas
-	.cacheLabel(Label("Hi", Coordinates(1, 3), Colors.Red))
-	.cacheLabel(Label("Hi", Coordinates(2, 4), Colors.Blue))
-	.draw();
+		.cacheRect(Rect(Coordinates(0, 0), Coordinates(20, 8), Color(0, 255, 2)))
+		.cacheLabel(Label("Hi", Coordinates(1, 3), Colors.Red))
+		.cacheLabel(Label("Hi", Coordinates(2, 4), Colors.Blue))
+		.draw();
 }
