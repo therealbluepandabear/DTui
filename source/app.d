@@ -117,7 +117,7 @@ class Canvas {
 		return this;
 	}
 
-	void draw() {
+	void drawCache() {
 		Cell[] cellsDrawn;
 
 		for (int y = 0; y < height; ++y) {
@@ -153,5 +153,5 @@ void main() {
 		.cacheRect(Rect(Coordinates(0, 0), Coordinates(20, 8), Color(0, 255, 2)))
 		.cacheLabel(Label("Hi", Coordinates(1, 3), Colors.Red))
 		.cacheLabel(Label("Hi", Coordinates(2, 4), Colors.Blue))
-		.draw();
+		.drawCache();
 }
