@@ -6,6 +6,8 @@ import renderable.renderable;
 import coordinates;
 import color;
 import cell;
+import std.stdio;
+import std.algorithm;
 
 class Row {
 	private Canvas canvas = new Canvas();
@@ -23,7 +25,7 @@ class Row {
 	}
 
     void updateCursor() {
-        cursor = Coordinates(children[$ - 1].getDimensions().width + 1, 0);
+        cursor = Coordinates(children.map!(child => child.getDimensions().width).fold!((a, b) => (a + b) + 1), 0);
     }
 
 	void draw() {

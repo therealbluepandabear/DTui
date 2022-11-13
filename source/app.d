@@ -132,6 +132,9 @@ void main() {
 
 	row.addChild(rect);
 	row.addChild(rect);
+	row.addChild(rect);
+
+
 
 	row.draw();
 }
