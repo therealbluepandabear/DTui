@@ -4,23 +4,8 @@ import std.process;
 import core.thread.osthread;
 import core.time;
 import std.random;
-
-struct Color {
-	int r;
-	int g;
-	int b;
-}
-
-class Colors {
-	static Color Red = Color(255, 0, 0);
-	static Color Green = Color(0, 255, 0);
-	static Color Blue = Color(0, 0, 255);
-}
-
-struct Coordinates {
-	int x;
-	int y;
-}
+import color;
+import coordinates;
 
 struct Cell {
 	Coordinates coordinates;
@@ -108,7 +93,7 @@ class Column {
 		to.x += width;
 		to.y += height;
 
-		canvas.cacheCells(Rect(cursor, to, Colors.Red).toCells());
+		canvas.cacheCells(Rect(cursor, to, Color.Red).toCells());
 
 		cursor = Coordinates(0, to.y + 1);
 	}
@@ -131,7 +116,7 @@ class Row {
 		to.x += width;
 		to.y += height;
 
-		canvas.cacheCells(Rect(cursor, to, Colors.Red).toCells());
+		canvas.cacheCells(Rect(cursor, to, Color.Red).toCells());
 
 		cursor = Coordinates(to.x + 1, 0);
 	}
