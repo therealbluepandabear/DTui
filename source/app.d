@@ -130,10 +130,14 @@ void main() {
 	rect.dimensions = Dimensions(10, 10);
 	rect.color = Color.Blue;
 
-	row.addChild(rect);
-	row.addChild(rect);
-	row.addChild(rect);
+	Label label = new Label();
+	label.text = "Hi";
+	label.color = Color.Red;
 
+	row.addChild(rect);
+	row.addChild(rect);
+	row.addChild(rect);
+	row.addChild(label);
 
 
 	row.draw();

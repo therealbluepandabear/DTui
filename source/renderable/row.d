@@ -25,7 +25,9 @@ class Row {
 	}
 
     void updateCursor() {
-        cursor = Coordinates(children.map!(child => child.getDimensions().width).fold!((a, b) => (a + b) + 1), 0);
+		int totalWidth = children.map!(child => child.getDimensions().width).fold!((a, b) => (a + b) + 1);
+
+        cursor = Coordinates(totalWidth, 0);
     }
 
 	void draw() {
