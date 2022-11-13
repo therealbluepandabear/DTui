@@ -11,7 +11,7 @@ import cell;
 import renderable.renderable;
 import renderable.rect;
 import renderable.label;
-import renderable.row;
+import renderable.stacklayout;
 
 //class Column {
 //	private Canvas canvas = new Canvas();
@@ -124,7 +124,7 @@ void canvas() {
 }
 
 void main() {
-	Row row = new Row();
+	StackLayout row = new StackLayout();
 
 	Rect rect = new Rect();
 	rect.dimensions = Dimensions(10, 10);
