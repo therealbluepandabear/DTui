@@ -4,49 +4,52 @@ import color;
 import coordinates;
 import cell;
 import renderable.renderable;
+import dimensions;
 
 class Rect : Renderable {
-    Coordinates from;
-    Coordinates to;
+    Dimensions dimensions;
     Color color;
 
     override Cell[] render() {
         Cell[] cells;
 
+        Coordinates from = Coordinates(0, 0);
+        Coordinates to = Coordinates(dimensions.width, dimensions.height);
+
         for (int x = from.x; x <= to.x; ++x) {
             wchar content;
 
-            if (x == this.from.x) {
+            if (x == from.x) {
                 content = '┌';
-            } else if (x == this.to.x) {
+            } else if (x == to.x) {
                 content = '┐';
             } else {
                 content = '─';
             }
 
-            cells ~= Cell(Coordinates(x, this.from.y), content, color);
+            cells ~= Cell(Coordinates(x, from.y), content, color);
         }
 
         for (int x = from.x; x <= to.x; ++x) {
             wchar content;
 
-            if (x == this.from.x) {
+            if (x == from.x) {
                 content = '└';
-            } else if (x == this.to.x) {
+            } else if (x == to.x) {
                 content = '┘';
             } else {
                 content = '─';
             }
 
-            cells ~= Cell(Coordinates(x, this.to.y), content, color);
+            cells ~= Cell(Coordinates(x, to.y), content, color);
         }
 
         for (int y = from.y + 1; y < to.y; ++y) {
-            cells ~= Cell(Coordinates(this.from.x, y), '│', color);
+            cells ~= Cell(Coordinates(from.x, y), '│', color);
         }
 
         for (int y = from.y + 1; y < to.y; ++y) {
-            cells ~= Cell(Coordinates(this.to.x, y), '│', color);
+            cells ~= Cell(Coordinates(to.x, y), '│', color);
         }
 
         return cells;

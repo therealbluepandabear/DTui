@@ -9,6 +9,8 @@ import coordinates;
 import dimensions;
 import cell;
 import renderable.renderable;
+import renderable.rect;
+import renderable.label;
 
 //class Column {
 //	private Canvas canvas = new Canvas();
@@ -62,7 +64,14 @@ class Canvas {
 	private Cell[] cache;
 
 	void updateCache(Renderable renderable, Coordinates position) {
-		cache ~= renderable.render();
+		Cell[] renderedCells = renderable.render();
+
+		foreach (ref cell; renderedCells) {
+			cell.coordinates.x += position.x;
+			cell.coordinates.y += position.y;
+		}
+
+		cache ~= renderedCells;
 	}
 
 	void drawCache() {
@@ -93,5 +102,20 @@ class Canvas {
 }
 
 void main() {
+	Canvas canvas = new Canvas();
+	canvas.dimensions = Dimensions(50, 50);
 
+	Rect rect = new Rect();
+	rect.dimensions = Dimensions(10, 10);
+	rect.color = Color.Blue;
+
+	Label label = new Label();
+	label.text = "Hi";
+	label.color = Color.Red;
+
+	canvas.updateCache(rect, Coordinates(5, 5));
+	canvas.updateCache(rect, Coordinates(30, 30));
+	canvas.updateCache(label, Coordinates(0, 0));
+
+	canvas.drawCache();
 }

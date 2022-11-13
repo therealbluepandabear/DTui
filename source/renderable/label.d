@@ -7,17 +7,13 @@ import renderable.renderable;
 
 class Label : Renderable {
     string text;
-    Coordinates origin;
     Color color;
 
     override Cell[] render() {
         Cell[] cells;
 
-        int loopCount = 0;
-
-        for (int x = origin.x; x < origin.x + text.length; ++x) {
-            cells ~= Cell(Coordinates(x, origin.y), text[loopCount], color);
-            ++loopCount;
+        for (int x = 0; x < 0 + text.length; ++x) {
+            cells ~= Cell(Coordinates(x, 0), text[x], color);
         }
 
         return cells;
