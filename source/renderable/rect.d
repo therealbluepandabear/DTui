@@ -10,6 +10,10 @@ class Rect : Renderable {
     Dimensions dimensions;
     Color color;
 
+    override Dimensions getDimensions() {
+        return dimensions;
+    }
+
     override Cell[] render() {
         Cell[] cells;
 

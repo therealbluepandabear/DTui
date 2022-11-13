@@ -11,6 +11,7 @@ import cell;
 import renderable.renderable;
 import renderable.rect;
 import renderable.label;
+import renderable.row;
 
 //class Column {
 //	private Canvas canvas = new Canvas();
@@ -101,7 +102,7 @@ class Canvas {
 	}
 }
 
-void main() {
+void canvas() {
 	Canvas canvas = new Canvas();
 	canvas.dimensions = Dimensions(50, 50);
 
@@ -114,8 +115,23 @@ void main() {
 	label.color = Color.Red;
 
 	canvas.updateCache(rect, Coordinates(5, 5));
-	canvas.updateCache(rect, Coordinates(30, 30));
+	canvas.updateCache(rect, Coordinates(8, 8));
+
 	canvas.updateCache(label, Coordinates(0, 0));
+	canvas.updateCache(label, Coordinates(40, 49));
 
 	canvas.drawCache();
+}
+
+void main() {
+	Row row = new Row();
+
+	Rect rect = new Rect();
+	rect.dimensions = Dimensions(10, 10);
+	rect.color = Color.Blue;
+
+	row.addChild(rect);
+	row.addChild(rect);
+
+	row.draw();
 }
