@@ -11,7 +11,7 @@ import std.algorithm;
 import orientation;
 
 class StackLayout {
-    Orientation orientation = Orientation.vertical;
+    Orientation orientation = Orientation.horizontal;
 
     private Canvas canvas = new Canvas();
     private Renderable[] children;

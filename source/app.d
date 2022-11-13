@@ -12,52 +12,7 @@ import renderable.renderable;
 import renderable.rect;
 import renderable.label;
 import renderable.stacklayout;
-
-//class Column {
-//	private Canvas canvas = new Canvas();
-//
-//	private Coordinates cursor = Coordinates(0, 0);
-//
-//	void addRect(int width, int height) {
-//		canvas.width += width + 1;
-//		canvas.height += height + 1;
-//
-//		Coordinates to = cursor;
-//		to.x += width;
-//		to.y += height;
-//
-//		canvas.cacheCells(Rect(cursor, to, Color.Red).toCells());
-//
-//		cursor = Coordinates(0, to.y + 1);
-//	}
-//
-//	void draw() {
-//		canvas.drawCache();
-//	}
-//}
-//
-//class Row {
-//	private Canvas canvas = new Canvas();
-//
-//	private Coordinates cursor = Coordinates(0, 0);
-//
-//	void addRect(int width, int height) {
-//		canvas.width += width + 1;
-//		canvas.height += height + 1;
-//
-//		Coordinates to = cursor;
-//		to.x += width;
-//		to.y += height;
-//
-//		canvas.cacheCells(Rect(cursor, to, Color.Red).toCells());
-//
-//		cursor = Coordinates(to.x + 1, 0);
-//	}
-//
-//	void draw() {
-//		canvas.drawCache();
-//	}
-//}
+import orientation;
 
 class Canvas {
 	Dimensions dimensions;
@@ -125,6 +80,7 @@ void canvas() {
 
 void main() {
 	StackLayout row = new StackLayout();
+	row.orientation = Orientation.horizontal;
 
 	Rect rect = new Rect();
 	rect.dimensions = Dimensions(10, 10);
