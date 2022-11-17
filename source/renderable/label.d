@@ -38,7 +38,7 @@ class Label : Renderable {
     override Cell[] render() const {
         Cell[] cells;
 
-        for (int x = 0; x < 0 + text.length; ++x) {
+        for (int x = 0; x < text.length; ++x) {
             cells ~= Cell(Coordinates(x, 0), text[x], color);
         }
 
