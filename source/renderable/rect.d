@@ -21,8 +21,8 @@ class Rect : Renderable {
     override Cell[] render() const {
         Cell[] cells;
 
-        Coordinates from = Coordinates(0, 0);
-        Coordinates to = Coordinates(dimensions.width, dimensions.height);
+        const Coordinates from = Coordinates(0, 0);
+        const Coordinates to = Coordinates(dimensions.width, dimensions.height);
 
         for (int x = from.x; x <= to.x; ++x) {
             wchar content;
