@@ -94,6 +94,7 @@ void main() {
 	row.addChild(rect);
 	row.addChild(rect);
 	row.addChild(label);
+	row.addChild(rect);
 
 
 	row.draw();

@@ -7,12 +7,11 @@ import renderable.renderable;
 import dimensions;
 
 class Label : Renderable {
-    Dimensions dimensions;
     string text;
     Color color;
 
     override Dimensions getDimensions() {
-        return dimensions;
+        return Dimensions(cast(int)text.length, cast(int)text.length);
     }
 
     override Cell[] render() {
