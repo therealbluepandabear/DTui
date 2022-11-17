@@ -9,7 +9,7 @@ import dimensions;
 class Rect : Renderable {
     private const Color color;
 
-    this(Dimensions dimensions, Color color) {
+    this(const Dimensions dimensions, const Color color) {
         this.dimensions = dimensions;
         this.color = color;
     }

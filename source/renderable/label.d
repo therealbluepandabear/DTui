@@ -12,11 +12,11 @@ class Label : Renderable {
     private const TextAlignment textAlignment;
     private const Color color;
 
-    this(string text, Color color) {
+    this(const string text, const Color color) {
         this(Dimensions(cast(int)(text.length - 1), 1), text, TextAlignment.left, color);
     }
 
-    this(Dimensions dimensions, string text, TextAlignment textAlignment, Color color) {
+    this(const Dimensions dimensions, const string text, const TextAlignment textAlignment, const Color color) {
         this.dimensions = dimensions;
         this.text = text;
         this.textAlignment = textAlignment;

@@ -18,7 +18,7 @@ class StackLayout {
 
     private Coordinates cursor = Coordinates(0, 0);
 
-    this(Orientation orientation) {
+    this(const Orientation orientation) {
         this.orientation = orientation;
     }
 
