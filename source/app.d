@@ -63,7 +63,7 @@ void main() {
 	row.orientation = Orientation.horizontal;
 
 	Rect rect = new Rect(Dimensions(10, 10), Color.Blue);
-	Label label = new Label("Hi", TextAlignment.center, Color.Red);
+	Label label = new Label("Hi", Color.Red);
 
 	row.addChild(rect);
 	row.addChild(rect);
