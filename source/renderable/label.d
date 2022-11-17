@@ -13,7 +13,7 @@ class Label : Renderable {
     private const Color color;
 
     this(string text, Color color) {
-        this(Dimensions(cast(int)text.length, 1), text, TextAlignment.left, color);
+        this(Dimensions(cast(int)text.length - 1, 1), text, TextAlignment.left, color);
     }
 
     this(Dimensions dimensions, string text, TextAlignment textAlignment, Color color) {
