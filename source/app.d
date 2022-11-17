@@ -13,6 +13,7 @@ import renderable.rect;
 import renderable.label;
 import renderable.stacklayout;
 import orientation;
+import textalignment;
 
 class Canvas {
 	Dimensions dimensions;
@@ -57,38 +58,12 @@ class Canvas {
 	}
 }
 
-void canvas() {
-	Canvas canvas = new Canvas();
-	canvas.dimensions = Dimensions(50, 50);
-
-	Rect rect = new Rect();
-	rect.dimensions = Dimensions(10, 10);
-	rect.color = Color.Blue;
-
-	Label label = new Label();
-	label.text = "Hi";
-	label.color = Color.Red;
-
-	canvas.updateCache(rect, Coordinates(5, 5));
-	canvas.updateCache(rect, Coordinates(8, 8));
-
-	canvas.updateCache(label, Coordinates(0, 0));
-	canvas.updateCache(label, Coordinates(40, 49));
-
-	canvas.drawCache();
-}
-
 void main() {
 	StackLayout row = new StackLayout();
 	row.orientation = Orientation.horizontal;
 
-	Rect rect = new Rect();
-	rect.dimensions = Dimensions(10, 10);
-	rect.color = Color.Blue;
-
-	Label label = new Label();
-	label.text = "Hi";
-	label.color = Color.Red;
+	Rect rect = new Rect(Dimensions(10, 10), Color.Blue);
+	Label label = new Label("Hi", TextAlignment.center, Color.Red);
 
 	row.addChild(rect);
 	row.addChild(rect);

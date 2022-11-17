@@ -3,7 +3,12 @@ module renderable.renderable;
 import dimensions;
 import cell;
 
-interface Renderable {
-    Dimensions getDimensions();
-    Cell[] render();
+abstract class Renderable {
+    protected Dimensions dimensions;
+
+    Dimensions getDimensions() const {
+        return dimensions;
+    }
+
+    abstract const Cell[] render();
 }

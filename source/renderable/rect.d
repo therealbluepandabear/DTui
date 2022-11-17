@@ -7,14 +7,18 @@ import renderable.renderable;
 import dimensions;
 
 class Rect : Renderable {
-    Dimensions dimensions;
-    Color color;
+    private const Color color;
 
-    override Dimensions getDimensions() {
-        return dimensions;
+    this(Dimensions dimensions, Color color) {
+        this.dimensions = dimensions;
+        this.color = color;
     }
 
-    override Cell[] render() {
+    Color getColor() const {
+        return color;
+    }
+
+    override Cell[] render() const {
         Cell[] cells;
 
         Coordinates from = Coordinates(0, 0);

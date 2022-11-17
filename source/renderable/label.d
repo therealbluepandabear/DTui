@@ -5,16 +5,38 @@ import coordinates;
 import cell;
 import renderable.renderable;
 import dimensions;
+import textalignment;
 
 class Label : Renderable {
-    string text;
-    Color color;
+    private const string text;
+    private const TextAlignment textAlignment;
+    private const Color color;
 
-    override Dimensions getDimensions() {
-        return Dimensions(cast(int)text.length, cast(int)text.length);
+    this(Dimensions dimensions, string text, Color color) {
+        this.dimensions = dimensions;
+        this(text, TextAlignment.left, color);
     }
 
-    override Cell[] render() {
+    this(string text, TextAlignment textAlignment, Color color) {
+        this.dimensions = dimensions;
+        this.text = text;
+        this.textAlignment = textAlignment;
+        this.color = color;
+    }
+
+    string getText() const {
+        return text;
+    }
+
+    TextAlignment getTextAlignment() const {
+        return textAlignment;
+    }
+
+    Color getColor() const {
+        return color;
+    }
+
+    override Cell[] render() const {
         Cell[] cells;
 
         for (int x = 0; x < 0 + text.length; ++x) {
