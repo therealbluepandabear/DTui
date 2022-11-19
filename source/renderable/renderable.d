@@ -4,11 +4,7 @@ import dimensions;
 import cell;
 
 abstract class Renderable {
-    protected Dimensions dimensions;
+    Dimensions dimensions;
 
-    Dimensions getDimensions() {
-        return dimensions;
-    }
-
-    abstract  Cell[] render();
+    abstract Cell[] render();
 }

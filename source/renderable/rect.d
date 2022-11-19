@@ -7,46 +7,12 @@ import renderable.renderable;
 import dimensions;
 import std.stdio;
 
-class Rect2D {
-    int rectWidth;
-    int rectHeight;
-
-    int width() {
-        writeln("GET");
-        return rectWidth;
-    }
-
-    void width(int rectWidth) {
-        writeln("SET");
-        this.rectWidth = rectWidth;
-    }
-
-    int height() {
-        writeln("GET");
-        return rectHeight;
-    }
-
-    void height(int rectHeight) {
-        writeln("SET");
-        this.rectHeight = rectHeight;
-    }
-}
-
-
 class Rect : Renderable {
-    private  Color color;
+    Color color;
 
-    this( Dimensions dimensions,  Color color) {
+    this(Dimensions dimensions, Color color) {
         this.dimensions = dimensions;
         this.color = color;
-
-        Rect2D rect = new Rect2D();
-        rect.width = 5;
-        rect.height = 5;
-    }
-
-    Color getColor()  {
-        return color;
     }
 
     override Cell[] render()  {

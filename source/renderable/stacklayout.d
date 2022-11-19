@@ -11,7 +11,7 @@ import std.algorithm;
 import orientation;
 
 class StackLayout {
-    private  Orientation orientation;
+    Orientation orientation;
 
     private Canvas canvas = new Canvas();
     private Renderable[] children;
@@ -22,13 +22,9 @@ class StackLayout {
         this.orientation = orientation;
     }
 
-    Orientation getOrientation() {
-        return orientation;
-    }
-
     void addChild(Renderable renderable) {
-        canvas.dimensions.width += renderable.getDimensions().width + 1;
-        canvas.dimensions.height += renderable.getDimensions().height + 1;
+        canvas.dimensions.width += renderable.dimensions.width + 1;
+        canvas.dimensions.height += renderable.dimensions.height + 1;
         canvas.updateCache(renderable, cursor);
 
         children ~= renderable;
@@ -37,11 +33,11 @@ class StackLayout {
 
     void updateCursor() {
         if (orientation == Orientation.horizontal) {
-             int totalWidth = (children.map!(child => child.getDimensions().width).fold!((a, b) => (a + b))) + cast(int)children.length;
+             int totalWidth = (children.map!(child => child.dimensions.width).fold!((a, b) => (a + b))) + cast(int)children.length;
 
             cursor = Coordinates(totalWidth, 0);
         } else {
-             int totalHeight = (children.map!(child => child.getDimensions().height).fold!((a, b) => (a + b))) + cast(int)children.length;
+             int totalHeight = (children.map!(child => child.dimensions.height).fold!((a, b) => (a + b))) + cast(int)children.length;
 
             cursor = Coordinates(0, totalHeight);
         }
