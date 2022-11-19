@@ -5,24 +5,55 @@ import coordinates;
 import cell;
 import renderable.renderable;
 import dimensions;
+import std.stdio;
 
-class Rect : Renderable {
-    private const Color color;
+class Rect2D {
+    int rectWidth;
+    int rectHeight;
 
-    this(const Dimensions dimensions, const Color color) {
-        this.dimensions = dimensions;
-        this.color = color;
+    int width() {
+        writeln("GET");
+        return rectWidth;
     }
 
-    Color getColor() const {
+    void width(int rectWidth) {
+        writeln("SET");
+        this.rectWidth = rectWidth;
+    }
+
+    int height() {
+        writeln("GET");
+        return rectHeight;
+    }
+
+    void height(int rectHeight) {
+        writeln("SET");
+        this.rectHeight = rectHeight;
+    }
+}
+
+
+class Rect : Renderable {
+    private  Color color;
+
+    this( Dimensions dimensions,  Color color) {
+        this.dimensions = dimensions;
+        this.color = color;
+
+        Rect2D rect = new Rect2D();
+        rect.width = 5;
+        rect.height = 5;
+    }
+
+    Color getColor()  {
         return color;
     }
 
-    override Cell[] render() const {
+    override Cell[] render()  {
         Cell[] cells;
 
-        const Coordinates from = Coordinates(0, 0);
-        const Coordinates to = Coordinates(dimensions.width, dimensions.height);
+         Coordinates from = Coordinates(0, 0);
+         Coordinates to = Coordinates(dimensions.width, dimensions.height);
 
         for (int x = from.x; x <= to.x; ++x) {
             wchar content;

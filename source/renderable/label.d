@@ -8,34 +8,34 @@ import dimensions;
 import textalignment;
 
 class Label : Renderable {
-    private const string text;
-    private const TextAlignment textAlignment;
-    private const Color color;
+    private  string text;
+    private  TextAlignment textAlignment;
+    private  Color color;
 
-    this(const string text, const Color color) {
+    this( string text,  Color color) {
         this(Dimensions(cast(int)(text.length - 1), 1), text, TextAlignment.left, color);
     }
 
-    this(const Dimensions dimensions, const string text, const TextAlignment textAlignment, const Color color) {
+    this( Dimensions dimensions,  string text,  TextAlignment textAlignment,  Color color) {
         this.dimensions = dimensions;
         this.text = text;
         this.textAlignment = textAlignment;
         this.color = color;
     }
 
-    string getText() const {
+    string getText()  {
         return text;
     }
 
-    TextAlignment getTextAlignment() const {
+    TextAlignment getTextAlignment()  {
         return textAlignment;
     }
 
-    Color getColor() const {
+    Color getColor()  {
         return color;
     }
 
-    override Cell[] render() const {
+    override Cell[] render()  {
         Cell[] cells;
 
         for (int x = 0; x < text.length; ++x) {

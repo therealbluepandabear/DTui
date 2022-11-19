@@ -6,9 +6,9 @@ import cell;
 abstract class Renderable {
     protected Dimensions dimensions;
 
-    Dimensions getDimensions() const {
+    Dimensions getDimensions() {
         return dimensions;
     }
 
-    abstract const Cell[] render();
+    abstract  Cell[] render();
 }
