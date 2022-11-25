@@ -23,7 +23,7 @@ class Label : Renderable {
     }
 
     this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, Color color) {
-        this(dimensions, text, horizontalTextAlignment, VerticalTextAlignment.center, color);
+        this(dimensions, text, horizontalTextAlignment, VerticalTextAlignment.top, color);
     }
 
     this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, VerticalTextAlignment verticalTextAlignment, Color color) {
