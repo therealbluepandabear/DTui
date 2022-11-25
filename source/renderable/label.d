@@ -15,7 +15,7 @@ class Label : Renderable {
     Color color;
 
     this(string text, Color color) {
-        this(Dimensions(cast(int)(text.length), 1), text, Color.Red);
+        this(Dimensions(cast(int)(text.length), 1), text, color);
     }
 
     this(Dimensions dimensions, string text, Color color) {
@@ -58,12 +58,11 @@ class Label : Renderable {
             }
 
             cells ~= Cell(Coordinates(cast(int)x, cast(int)y), text[pos], color);
-
         }
 
         for (int x = 0; x < dimensions.width; ++x) {
             for (int y = 0; y < dimensions.height; ++y) {
-                cells ~= Cell(Coordinates(x, y), '*', color);
+                cells ~= Cell(Coordinates(x, y), ' ', color);
             }
         }
 
