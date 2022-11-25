@@ -23,7 +23,7 @@ struct Color {
             if (isDigit(hexChar)) {
                 b10 = cast(int)(hexChar - '0');
             } else {
-                b10 = cast(int)((hexChar - 0x40) + 9);
+                b10 = cast(int)((toUpper(hexChar) - 0x40) + 9);
             }
 
             num += (b10 * pow(16, ((hex.length - indx) - 1)));
