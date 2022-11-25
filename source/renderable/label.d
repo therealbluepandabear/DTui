@@ -5,17 +5,20 @@ import coordinates;
 import cell;
 import renderable.renderable;
 import dimensions;
-import textalignment;
+import horizontaltextalignment;
+import verticaltextalignment;
 
 class Label : Renderable {
     string text;
-    TextAlignment textAlignment;
+    HorizontalTextAlignment horizontalTextAlignment;
+    VerticalTextAlignment verticalTextAlignment;
     Color color;
 
-    this(Dimensions dimensions, string text, TextAlignment textAlignment, Color color) {
+    this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, VerticalTextAlignment verticalTextAlignment, Color color) {
         this.dimensions = dimensions;
         this.text = text;
-        this.textAlignment = textAlignment;
+        this.horizontalTextAlignment = horizontalTextAlignment;
+        this.verticalTextAlignment = verticalTextAlignment;
         this.color = color;
     }
 
@@ -23,23 +26,32 @@ class Label : Renderable {
         Cell[] cells;
 
         foreach (pos, character; text) {
-            long position;
+            long x;
+            long y;
 
-            if (textAlignment == TextAlignment.right) {
-                position = (dimensions.width - text.length) + pos;
-            } else if (textAlignment == TextAlignment.left) {
-                position = pos;
-            } else {
-                position = (dimensions.width / 2 - (text.length / 2)) + pos;
+            if (horizontalTextAlignment == HorizontalTextAlignment.center) {
+                x = (dimensions.width / 2 - (text.length / 2)) + pos;
+            } else if (horizontalTextAlignment == HorizontalTextAlignment.left) {
+                x = pos;
+            } else if (horizontalTextAlignment == HorizontalTextAlignment.right) {
+                x = (dimensions.width - text.length) + pos;
             }
 
-            cells ~= Cell(Coordinates(cast(int)position, 0), text[pos], color);
+            if (verticalTextAlignment == VerticalTextAlignment.center) {
+                y = dimensions.height / 2;
+            } else if (verticalTextAlignment == VerticalTextAlignment.top) {
+                y = 0;
+            } else if (verticalTextAlignment == VerticalTextAlignment.bottom) {
+                y = dimensions.height - 1;
+            }
+
+            cells ~= Cell(Coordinates(cast(int)x, cast(int)y), text[pos], color);
 
         }
 
         for (int x = 0; x < dimensions.width; ++x) {
             for (int y = 0; y < dimensions.height; ++y) {
-                cells ~= Cell(Coordinates(x, y), ' ', color);
+                cells ~= Cell(Coordinates(x, y), '*', color);
             }
         }
 

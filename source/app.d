@@ -13,7 +13,8 @@ import renderable.rect;
 import renderable.label;
 import renderable.stacklayout;
 import orientation;
-import textalignment;
+import horizontaltextalignment;
+import verticaltextalignment;
 
 class Canvas {
 	Dimensions dimensions;
@@ -61,7 +62,7 @@ class Canvas {
 void main() {
 	StackLayout row = new StackLayout(Orientation.horizontal);
 
-	Label label = new Label(Dimensions(50, 50), "Helo darknes", TextAlignment.right, Color.Red);
+	Label label = new Label(Dimensions(50, 50), "Helo darknes", HorizontalTextAlignment.right, VerticalTextAlignment.bottom, Color.Red);
 
 	row.addChild(label);
 
