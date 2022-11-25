@@ -6,5 +6,5 @@ import cell;
 abstract class Renderable {
     Dimensions dimensions;
 
-    abstract Cell[] render();
+    Cell[] render();
 }

@@ -15,11 +15,11 @@ class Rect : Renderable {
         this.color = color;
     }
 
-    override Cell[] render()  {
+    override Cell[] render() {
         Cell[] cells;
 
-         Coordinates from = Coordinates(0, 0);
-         Coordinates to = Coordinates(dimensions.width, dimensions.height);
+        Coordinates from = Coordinates(0, 0);
+        Coordinates to = Coordinates(dimensions.width, dimensions.height);
 
         for (int x = from.x; x <= to.x; ++x) {
             wchar content;

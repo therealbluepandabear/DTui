@@ -12,10 +12,6 @@ class Label : Renderable {
     TextAlignment textAlignment;
     Color color;
 
-    this(string text, Color color) {
-        this(Dimensions(cast(int)(text.length - 1), 1), text, TextAlignment.left, color);
-    }
-
     this(Dimensions dimensions, string text, TextAlignment textAlignment, Color color) {
         this.dimensions = dimensions;
         this.text = text;
@@ -26,8 +22,26 @@ class Label : Renderable {
     override Cell[] render()  {
         Cell[] cells;
 
-        for (int x = 0; x < text.length; ++x) {
-            cells ~= Cell(Coordinates(x, 0), text[x], color);
+        foreach (pos, character; text) {
+            long position;
+            long index;
+
+            if (textAlignment == TextAlignment.right) {
+                position = dimensions.width - pos - 1;
+                index = text.length - pos - 1;
+            } else {
+                position = pos;
+                index = pos;
+            }
+
+            cells ~= Cell(Coordinates(cast(int)position, 0), text[index], color);
+
+        }
+
+        for (int x = 0; x < dimensions.width; ++x) {
+            for (int y = 0; y < dimensions.height; ++y) {
+                cells ~= Cell(Coordinates(x, y), ' ', color);
+            }
         }
 
         return cells;
