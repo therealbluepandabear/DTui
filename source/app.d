@@ -62,10 +62,10 @@ class Canvas {
 void main() {
 	StackLayout row = new StackLayout(Orientation.horizontal);
 
-	Label label = new Label(Dimensions(50, 50), "Helo darknes", HorizontalTextAlignment.right, VerticalTextAlignment.bottom, Color.Red);
+	Label label = new Label("Helo darknes", Color.Red);
 
 	row.addChild(label);
-
+	row.addChild(label);
 
 	row.draw();
 }

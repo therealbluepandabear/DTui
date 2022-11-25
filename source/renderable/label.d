@@ -14,6 +14,18 @@ class Label : Renderable {
     VerticalTextAlignment verticalTextAlignment;
     Color color;
 
+    this(string text, Color color) {
+        this(Dimensions(cast(int)(text.length), 1), text, Color.Red);
+    }
+
+    this(Dimensions dimensions, string text, Color color) {
+        this(dimensions, text, HorizontalTextAlignment.left, color);
+    }
+
+    this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, Color color) {
+        this(dimensions, text, horizontalTextAlignment, VerticalTextAlignment.center, color);
+    }
+
     this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, VerticalTextAlignment verticalTextAlignment, Color color) {
         this.dimensions = dimensions;
         this.text = text;
