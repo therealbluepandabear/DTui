@@ -26,10 +26,11 @@ class Label : Renderable {
             long position;
 
             if (textAlignment == TextAlignment.right) {
-                position = dimensions.width - text.length + pos;
+                position = (dimensions.width - text.length) + pos;
             } else if (textAlignment == TextAlignment.left) {
                 position = pos;
             } else {
+                position = (dimensions.width / 2 - (text.length / 2)) + pos;
             }
 
             cells ~= Cell(Coordinates(cast(int)position, 0), text[pos], color);
@@ -38,7 +39,7 @@ class Label : Renderable {
 
         for (int x = 0; x < dimensions.width; ++x) {
             for (int y = 0; y < dimensions.height; ++y) {
-                cells ~= Cell(Coordinates(x, y), '*', color);
+                cells ~= Cell(Coordinates(x, y), ' ', color);
             }
         }
 
