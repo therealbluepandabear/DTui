@@ -4,6 +4,8 @@ import std.stdio;
 import std.conv;
 import std.math.exponential;
 import std.ascii;
+import std.algorithm;
+import std.format;
 
 struct Color {
     int r;
@@ -32,7 +34,25 @@ struct Color {
         return num;
     }
 
+    private static bool validateHexColorFormat(ref string hex) {
+        if (hex.length == 7 && hex[0] == '#') {
+            hex = hex[1..7];
+        }
+
+        foreach (hexChar; hex) {
+            if (!isDigit(hexChar) && (toUpper(hexChar) != 'A' && toUpper(hexChar) != 'B' && toUpper(hexChar) != 'C' && toUpper(hexChar) != 'D' && toUpper(hexChar) != 'E' && toUpper(hexChar) != 'F')) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     static Color fromHex(string hex) {
+        if (!validateHexColorFormat(hex)) {
+            throw new Exception(format("Invalid format for hex string %s", hex));
+        }
+
         int r = Color.hexToDouble(hex[0..2]);
         int g = Color.hexToDouble(hex[2..4]);
         int b = Color.hexToDouble(hex[4..6]);

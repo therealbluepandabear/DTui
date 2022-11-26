@@ -62,9 +62,10 @@ class Canvas {
 void main() {
 	StackLayout row = new StackLayout(Orientation.horizontal);
 
-	Label label = new Label("Helo darknes", Color.fromHex("FFd700"));
+	Label label = new Label("Helo darknes", Color.fromHex("#FFDD77"));
 
 	row.addChild(label);
+
 
 	row.draw();
 }
