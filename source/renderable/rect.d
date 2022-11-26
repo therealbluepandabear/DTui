@@ -19,7 +19,7 @@ class Rect : Renderable {
         Cell[] cells;
 
         Coordinates from = Coordinates(0, 0);
-        Coordinates to = Coordinates(dimensions.width, dimensions.height);
+        Coordinates to = Coordinates(dimensions.width - 1, dimensions.height - 1);
 
         for (int x = from.x; x <= to.x; ++x) {
             wchar content;
