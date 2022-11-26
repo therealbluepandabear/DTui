@@ -16,6 +16,28 @@ struct Color {
     static Color Green = Color(0, 255, 0);
     static Color Blue = Color(0, 0, 255);
 
+    // Credits go to https://sashamaps.net/docs/resources/20-colors/
+
+    static Color Maroon = Color.fromHex("800000");
+    static Color Brown = Color.fromHex("9A6324");
+    static Color Olive = Color.fromHex("808000");
+    static Color Teal = Color.fromHex("469990");
+    static Color Navy = Color.fromHex("000075");
+    static Color Black = Color.fromHex("000000");
+    static Color Orange = Color.fromHex("f58231");
+    static Color Yellow = Color.fromHex("ffe119");
+    static Color Lime = Color.fromHex("bfef45");
+    static Color Cyan = Color.fromHex("42d4f4");
+    static Color Purple = Color.fromHex("911eb4");
+    static Color Magenta = Color.fromHex("f032e6");
+    static Color Gray = Color.fromHex("a9a9a9");
+    static Color Pink = Color.fromHex("fabed4");
+    static Color Apricot = Color.fromHex("ffd8b1");
+    static Color Biege = Color.fromHex("fffac8");
+    static Color Mint = Color.fromHex("aaffc3");
+    static Color Lavender = Color.fromHex("dcbeff");
+    static Color White = Color.fromHex("ffffff");
+
     private static int hexToDouble(string hex) {
         int num;
 
