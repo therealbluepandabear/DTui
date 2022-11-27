@@ -11,6 +11,7 @@ import cell;
 import renderable.renderable;
 import renderable.rect;
 import renderable.label;
+import renderable.chart;
 import renderable.stacklayout;
 import orientation;
 import horizontaltextalignment;
@@ -59,14 +60,11 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(20, 20));
+	Canvas canvas = new Canvas(Dimensions(50, 50));
 
 	StackLayout stackLayout = new StackLayout(StackLayoutType.column);
 
-	Label l = new Label(new Rect(Dimensions(10, 5), Color.Red), "Hell", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.Yellow);
-
-	stackLayout.add(l);
-	stackLayout.add(l);
+	stackLayout.add(new Chart([1, 1, 1, 9, 9, 9, 1, 5, 11, 2, 1, 5, 9, 1, 4, 2, 12, 18, 1, 4, 5, 7, 8]));
 
 	canvas.updateCache(stackLayout, Coordinates(0, 0));
 	canvas.drawCache();

@@ -4,6 +4,7 @@ import cell;
 import renderable.renderable;
 import coordinates;
 import std.stdio;
+import std.algorithm;
 
 class CellCacheContainer {
     Cell[] cache;
