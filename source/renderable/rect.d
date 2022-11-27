@@ -60,14 +60,14 @@ class Rect : Renderable {
         }
 
         for (int y = from.y + 1; y < to.y; ++y) {
-            wchar defaultEdge = background;
+            wchar content = background;
 
             if (hasBorder) {
-                defaultEdge = '│';
+                content = '│';
             }
 
-            cells ~= Cell(Coordinates(from.x, y), defaultEdge, color);
-            cells ~= Cell(Coordinates(to.x, y), defaultEdge, color);
+            cells ~= Cell(Coordinates(from.x, y), content, color);
+            cells ~= Cell(Coordinates(to.x, y), content, color);
         }
 
         for (int x = 0; x < dimensions.width; ++x) {
