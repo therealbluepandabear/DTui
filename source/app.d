@@ -42,7 +42,6 @@ class Canvas {
 				foreach (cell; container.cache) {
 					if (cell.coordinates.x == x && cell.coordinates.y == y && !(cellsDrawn.canFind!(cell => cell.coordinates.x == x && cell.coordinates.y == y))) {
 						writef("\x1b[38;2;%s;%s;%sm", cell.color.r, cell.color.g, cell.color.b);
-
 						write(cell.content);
 						cellsDrawn ~= cell;
 						cellFound = true;
@@ -60,19 +59,13 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(900, 100));
+	Canvas canvas = new Canvas(Dimensions(20, 20));
 
-	Rect rect = new Rect(Dimensions(5, 5), Color.Red);
-	Rect rect2 = new Rect(Dimensions(5, 5), Color.White);
+	Rect rect = new Rect(Dimensions(5, 5), true, '*', Color.Red);
+	Rect rect2 = new Rect(Dimensions(5, 2), false, '#', Color.Red);
 
-	StackLayout row = new StackLayout(StackLayoutType.row);
+	canvas.updateCache(rect, Coordinates(0, 0));
+	canvas.updateCache(rect2, Coordinates(6, 6));
 
-	//row2.addChild(row);
-
-
-
-
-
-	canvas.updateCache(row, Coordinates(0, 0));
 	canvas.drawCache();
 }
