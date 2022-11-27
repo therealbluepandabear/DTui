@@ -9,41 +9,47 @@ import cell;
 import std.stdio;
 import std.algorithm;
 import orientation;
+import renderable.cellcachecontainer;
+import stacklayouttype;
 
-class StackLayout {
-    Orientation orientation;
+class StackLayout : Renderable {
+    StackLayoutType stackLayoutType;
 
-    private Canvas canvas = new Canvas();
+    private CellCacheContainer container;
     private Renderable[] children;
 
     private Coordinates cursor = Coordinates(0, 0);
 
-    this(Orientation orientation) {
-        this.orientation = orientation;
+    this(StackLayoutType stackLayoutType) {
+        this.stackLayoutType = stackLayoutType;
+        container = new CellCacheContainer();
     }
 
     void addChild(Renderable renderable) {
-        canvas.dimensions.width += renderable.dimensions.width + 1;
-        canvas.dimensions.height += renderable.dimensions.height + 1;
-        canvas.updateCache(renderable, cursor);
+        container.updateCache(renderable, cursor);
 
         children ~= renderable;
+
+        if (stackLayoutType == stackLayoutType.row) {
+            this.dimensions.width += renderable.dimensions.width;
+            this.dimensions.height = children.maxElement!(child => child.dimensions.height).dimensions.height;
+        } else {
+            this.dimensions.width = children.maxElement!(child => child.dimensions.width).dimensions.width;
+            this.dimensions.height += renderable.dimensions.height;
+        }
+
         updateCursor();
     }
 
     void updateCursor() {
-        if (orientation == Orientation.horizontal) {
-             int totalWidth = (children.map!(child => child.dimensions.width).fold!((a, b) => (a + b))) + cast(int)children.length;
-
-            cursor = Coordinates(totalWidth, 0);
+        if (stackLayoutType == stackLayoutType.row) {
+            cursor = Coordinates(this.dimensions.width, 0);
         } else {
-             int totalHeight = (children.map!(child => child.dimensions.height).fold!((a, b) => (a + b))) + cast(int)children.length;
-
-            cursor = Coordinates(0, totalHeight);
+            cursor = Coordinates(0, this.dimensions.height);
         }
     }
 
-    void draw() {
-        canvas.drawCache();
+    override Cell[] render() {
+        return container.cache;
     }
 }
