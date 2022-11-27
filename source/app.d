@@ -16,21 +16,20 @@ import orientation;
 import horizontaltextalignment;
 import verticaltextalignment;
 import stacklayouttype;
+import renderable.cellcachecontainer;
 
 class Canvas {
 	Dimensions dimensions;
 
-	private Cell[] cache;
+	private CellCacheContainer container;
+
+	this(Dimensions dimensions) {
+		this.dimensions = dimensions;
+		container = new CellCacheContainer();
+	}
 
 	void updateCache(Renderable renderable, Coordinates position) {
-		Cell[] renderedCells = renderable.render();
-
-		foreach (ref cell; renderedCells) {
-			cell.coordinates.x += position.x;
-			cell.coordinates.y += position.y;
-		}
-
-		cache ~= renderedCells;
+		container.updateCache(renderable, position);
 	}
 
 	void drawCache() {
@@ -40,7 +39,7 @@ class Canvas {
 			for (int x = 0; x < dimensions.width; ++x) {
 				bool cellFound = false;
 
-				foreach (cell; this.cache) {
+				foreach (cell; container.cache) {
 					if (cell.coordinates.x == x && cell.coordinates.y == y && !(cellsDrawn.canFind!(cell => cell.coordinates.x == x && cell.coordinates.y == y))) {
 						writef("\x1b[38;2;%s;%s;%sm", cell.color.r, cell.color.g, cell.color.b);
 
@@ -61,9 +60,7 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas();
-	canvas.dimensions.width = 900;
-	canvas.dimensions.height = 100;
+	Canvas canvas = new Canvas(Dimensions(900, 100));
 
 	Rect rect = new Rect(Dimensions(5, 5), Color.Red);
 	StackLayout row = new StackLayout(StackLayoutType.row);
