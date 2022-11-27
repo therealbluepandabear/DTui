@@ -34,35 +34,29 @@ class Rect : Renderable {
         Coordinates to = Coordinates(dimensions.width - 1, dimensions.height - 1);
 
         for (int x = from.x; x <= to.x; ++x) {
-            wchar content = background;
+            wchar content1 = background;
+            wchar content2 = background;
 
             if (hasBorder) {
                 if (x == from.x) {
-                    content = '┌';
+                    content1 = '└';
                 } else if (x == to.x) {
-                    content = '┐';
+                    content1 = '┘';
                 } else {
-                    content = '─';
+                    content1 = '─';
                 }
-            }
 
-            cells ~= Cell(Coordinates(x, from.y), content, color);
-        }
-
-        for (int x = from.x; x <= to.x; ++x) {
-            wchar content = background;
-
-            if (hasBorder) {
                 if (x == from.x) {
-                    content = '└';
+                    content2 = '┌';
                 } else if (x == to.x) {
-                    content = '┘';
+                    content2 = '┐';
                 } else {
-                    content = '─';
+                    content2 = '─';
                 }
             }
 
-            cells ~= Cell(Coordinates(x, to.y), content, color);
+            cells ~= Cell(Coordinates(x, to.y), content1, color);
+            cells ~= Cell(Coordinates(x, from.y), content2, color);
         }
 
         for (int y = from.y + 1; y < to.y; ++y) {
