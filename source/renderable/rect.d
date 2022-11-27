@@ -12,6 +12,14 @@ class Rect : Renderable {
     char background;
     Color color;
 
+    this(Dimensions dimensions, Color color) {
+        this(dimensions, true, color);
+    }
+
+    this(Dimensions dimensions, bool hasBorder, Color color) {
+        this(dimensions, hasBorder, ' ', color);
+    }
+
     this(Dimensions dimensions, bool hasBorder, char background, Color color) {
         this.dimensions = dimensions;
         this.hasBorder = hasBorder;

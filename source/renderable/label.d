@@ -7,27 +7,30 @@ import renderable.renderable;
 import dimensions;
 import horizontaltextalignment;
 import verticaltextalignment;
+import renderable.rect;
 
 class Label : Renderable {
+    Rect rect;
     string text;
     HorizontalTextAlignment horizontalTextAlignment;
     VerticalTextAlignment verticalTextAlignment;
     Color color;
 
     this(string text, Color color) {
-        this(Dimensions(cast(int)(text.length), 1), text, color);
+        this(new Rect(Dimensions(cast(int)(text.length), 1), false, ' ', Color.Red), text, color);
     }
 
-    this(Dimensions dimensions, string text, Color color) {
-        this(dimensions, text, HorizontalTextAlignment.left, color);
+    this(Rect rect, string text, Color color) {
+        this(rect, text, HorizontalTextAlignment.left, color);
     }
 
-    this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, Color color) {
-        this(dimensions, text, horizontalTextAlignment, VerticalTextAlignment.top, color);
+    this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment, Color color) {
+        this(rect, text, horizontalTextAlignment, VerticalTextAlignment.top, color);
     }
 
-    this(Dimensions dimensions, string text, HorizontalTextAlignment horizontalTextAlignment, VerticalTextAlignment verticalTextAlignment, Color color) {
-        this.dimensions = dimensions;
+    this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment, VerticalTextAlignment verticalTextAlignment, Color color) {
+        this.dimensions = rect.dimensions;
+        this.rect = rect;
         this.text = text;
         this.horizontalTextAlignment = horizontalTextAlignment;
         this.verticalTextAlignment = verticalTextAlignment;
@@ -60,11 +63,7 @@ class Label : Renderable {
             cells ~= Cell(Coordinates(cast(int)x, cast(int)y), text[pos], color);
         }
 
-        for (int x = 0; x < dimensions.width; ++x) {
-            for (int y = 0; y < dimensions.height; ++y) {
-                cells ~= Cell(Coordinates(x, y), ' ', color);
-            }
-        }
+        cells ~= rect.render();
 
         return cells;
     }

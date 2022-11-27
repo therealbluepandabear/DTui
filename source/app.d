@@ -61,11 +61,13 @@ class Canvas {
 void main() {
 	Canvas canvas = new Canvas(Dimensions(20, 20));
 
-	Rect rect = new Rect(Dimensions(5, 5), true, '*', Color.Red);
-	Rect rect2 = new Rect(Dimensions(5, 2), false, '#', Color.Red);
+	StackLayout stackLayout = new StackLayout(StackLayoutType.column);
 
-	canvas.updateCache(rect, Coordinates(0, 0));
-	canvas.updateCache(rect2, Coordinates(6, 6));
+	Label l = new Label(new Rect(Dimensions(10, 5), Color.Red), "Hell", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.Yellow);
 
+	stackLayout.add(l);
+	stackLayout.add(l);
+
+	canvas.updateCache(stackLayout, Coordinates(0, 0));
 	canvas.drawCache();
 }
