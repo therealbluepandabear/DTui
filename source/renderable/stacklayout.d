@@ -15,6 +15,7 @@ import stacklayouttype;
 class StackLayout : Renderable {
     StackLayoutType stackLayoutType;
 
+    // add spacing
     private CellCacheContainer container;
     private Renderable[] children;
 

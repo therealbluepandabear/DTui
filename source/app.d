@@ -60,11 +60,12 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(50, 50));
+	Canvas canvas = new Canvas(Dimensions(400, 100));
 
-	StackLayout stackLayout = new StackLayout(StackLayoutType.column);
+	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
 
-	stackLayout.add(new Chart([1, 1, 1, 9, 9, 9, 1, 5, 11, 2, 1, 5, 9, 1, 4, 2, 12, 18, 1, 4, 5, 7, 8]));
+	stackLayout.add(new Chart([1, 1, 1, 9, 9, 9, 1, 5, 11, 2, 1, 5, 9, 1, 4, 2, 12, 18, 1, 4, 5, 7, 8], 2, Color.Red));
+	stackLayout.add(new Chart([1, 1, 1, 9, 9, 9, 1, 5, 11, 2, 1, 5, 9, 1, 4, 2, 12, 18, 1, 4, 5, 7, 8], 2, Color.Blue));
 
 	canvas.updateCache(stackLayout, Coordinates(0, 0));
 	canvas.drawCache();

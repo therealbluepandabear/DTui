@@ -16,20 +16,24 @@ import renderable.cellcachecontainer;
 
 class Chart : Renderable {
     int[] data;
+    int columnSpace;
+    Color color;
 
     private CellCacheContainer container;
 
-    this(int[] data) {
-        this.dimensions = Dimensions(cast(int)data.length, data.maxElement);
+    this(int[] data, int columnSpace, Color color) {
+        this.dimensions = Dimensions(cast(int)(data.length + (data.length * columnSpace) - columnSpace), data.maxElement);
         this.data = data;
+        this.columnSpace = columnSpace;
+        this.color = color;
         container = new CellCacheContainer();
     }
 
     override Cell[] render() {
         foreach (indx, num; data) {
-            Rect rect = new Rect(Dimensions(1, num), false, '*', Color.Red);
+            Rect rect = new Rect(Dimensions(1, num), false, '*', color);
 
-            container.updateCache(rect, Coordinates(cast(int)indx, dimensions.height - num));
+            container.updateCache(rect, Coordinates(cast(int)(indx * (columnSpace + 1)), dimensions.height - num));
         }
 
         return container.cache;
