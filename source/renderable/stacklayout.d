@@ -49,15 +49,6 @@ class StackLayout : Renderable {
         }
     }
 
-    StackLayout dup() {
-        StackLayout toReturn = new StackLayout(stackLayoutType);
-        toReturn.children = children;
-        toReturn.cursor = cursor;
-        toReturn.container = container;
-
-        return toReturn;
-    }
-
     override Cell[] render() {
         return container.cache;
     }
