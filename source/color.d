@@ -19,7 +19,7 @@ struct Color {
     // Credits go to https://sashamaps.net/docs/resources/20-colors/
 
     static Color Maroon = Color.fromHex("800000");
-    static Color Brown = Color.fromHex("9A6324");
+    static Color Brown = Color.fromHex("9a6324");
     static Color Olive = Color.fromHex("808000");
     static Color Teal = Color.fromHex("469990");
     static Color Navy = Color.fromHex("000075");
