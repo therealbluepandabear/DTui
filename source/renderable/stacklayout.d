@@ -25,7 +25,7 @@ class StackLayout : Renderable {
         container = new CellCacheContainer();
     }
 
-    void addChild(Renderable renderable) {
+    void add(Renderable renderable) {
         container.updateCache(renderable, cursor);
 
         children ~= renderable;
@@ -47,6 +47,15 @@ class StackLayout : Renderable {
         } else {
             cursor = Coordinates(0, this.dimensions.height);
         }
+    }
+
+    StackLayout dup() {
+        StackLayout toReturn = new StackLayout(stackLayoutType);
+        toReturn.children = children;
+        toReturn.cursor = cursor;
+        toReturn.container = container;
+
+        return toReturn;
     }
 
     override Cell[] render() {
