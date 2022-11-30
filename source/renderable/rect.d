@@ -6,7 +6,6 @@ import cell;
 import renderable.renderable;
 import dimensions;
 import std.stdio;
-import border;
 
 class Rect : Renderable {
     private enum RectType {

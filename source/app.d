@@ -18,7 +18,6 @@ import horizontaltextalignment;
 import verticaltextalignment;
 import stacklayouttype;
 import renderable.cellcachecontainer;
-import border;
 
 class Canvas {
 	Dimensions dimensions;
