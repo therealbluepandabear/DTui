@@ -11,6 +11,17 @@ struct Color {
     int r;
     int g;
     int b;
+    private bool isTerminal;
+
+    this(int r, int g, int b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+
+    private this(bool isTerminal) {
+        this.isTerminal = isTerminal;
+    }
 
     static Color Red = Color(255, 0, 0);
     static Color Green = Color(0, 255, 0);
@@ -37,6 +48,10 @@ struct Color {
     static Color Mint = Color.fromHex("aaffc3");
     static Color Lavender = Color.fromHex("dcbeff");
     static Color White = Color.fromHex("ffffff");
+
+    static Color terminal() {
+        return Color(true);
+    }
 
     private static int hexToDouble(string hex) {
         int num;

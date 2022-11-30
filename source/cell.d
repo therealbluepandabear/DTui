@@ -6,5 +6,6 @@ import color;
 struct Cell {
     Coordinates coordinates;
     wchar content;
-    Color color;
+    Color contentColor;
+    Color backgroundColor = Color.terminal();
 }

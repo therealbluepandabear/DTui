@@ -6,25 +6,44 @@ import cell;
 import renderable.renderable;
 import dimensions;
 import std.stdio;
+import border;
 
 class Rect : Renderable {
-    bool hasBorder;
-    char background;
-    Color color;
-
-    this(Dimensions dimensions, Color color) {
-        this(dimensions, true, color);
+    private enum RectType {
+        fill, border, frame, empty
     }
 
-    this(Dimensions dimensions, bool hasBorder, Color color) {
-        this(dimensions, hasBorder, ' ', color);
+    RectType rectType;
+    Color fillColor;
+    Color frameColor;
+
+    static Rect withFill(Dimensions dimensions, Color fillColor) {
+        Rect rect = new Rect();
+
+        rect.dimensions = dimensions;
+        rect.rectType = RectType.fill;
+        rect.fillColor = fillColor;
+
+        return rect;
     }
 
-    this(Dimensions dimensions, bool hasBorder, char background, Color color) {
-        this.dimensions = dimensions;
-        this.hasBorder = hasBorder;
-        this.background = background;
-        this.color = color;
+    static Rect withFrame(Dimensions dimensions, Color frameColor) {
+        Rect rect = new Rect();
+
+        rect.dimensions = dimensions;
+        rect.rectType = RectType.frame;
+        rect.frameColor = frameColor;
+
+        return rect;
+    }
+
+    static Rect empty(Dimensions dimensions) {
+        Rect rect = new Rect();
+
+        rect.dimensions = dimensions;
+        rect.rectType = RectType.empty;
+
+        return rect;
     }
 
     override Cell[] render() {
@@ -33,46 +52,50 @@ class Rect : Renderable {
         Coordinates from = Coordinates(0, 0);
         Coordinates to = Coordinates(dimensions.width - 1, dimensions.height - 1);
 
-        for (int x = from.x; x <= to.x; ++x) {
-            wchar content1 = background;
-            wchar content2 = background;
+        if (rectType != RectType.empty && rectType != RectType.fill) {
+            for (int x = from.x; x <= to.x; ++x) {
+                if (rectType == RectType.frame) {
+                    wchar content1;
+                    wchar content2;
 
-            if (hasBorder) {
-                if (x == from.x) {
-                    content1 = '└';
-                } else if (x == to.x) {
-                    content1 = '┘';
-                } else {
-                    content1 = '─';
-                }
+                    if (x == from.x) {
+                        content1 = '└';
+                    } else if (x == to.x) {
+                        content1 = '┘';
+                    } else {
+                        content1 = '─';
+                    }
 
-                if (x == from.x) {
-                    content2 = '┌';
-                } else if (x == to.x) {
-                    content2 = '┐';
+                    if (x == from.x) {
+                        content2 = '┌';
+                    } else if (x == to.x) {
+                        content2 = '┐';
+                    } else {
+                        content2 = '─';
+                    }
+
+                    cells ~= Cell(Coordinates(x, to.y), content1, frameColor);
+                    cells ~= Cell(Coordinates(x, from.y), content2, frameColor);
                 } else {
-                    content2 = '─';
+
                 }
             }
 
-            cells ~= Cell(Coordinates(x, to.y), content1, color);
-            cells ~= Cell(Coordinates(x, from.y), content2, color);
-        }
+            for (int y = from.y + 1; y < to.y; ++y) {
+                if (rectType == RectType.frame) {
+                    wchar content = '│';
 
-        for (int y = from.y + 1; y < to.y; ++y) {
-            wchar content = background;
+                    cells ~= Cell(Coordinates(from.x, y), content, frameColor);
+                    cells ~= Cell(Coordinates(to.x, y), content, frameColor);
+                } else {
 
-            if (hasBorder) {
-                content = '│';
+                }
             }
-
-            cells ~= Cell(Coordinates(from.x, y), content, color);
-            cells ~= Cell(Coordinates(to.x, y), content, color);
-        }
-
-        for (int x = 0; x < dimensions.width; ++x) {
-            for (int y = 0; y < dimensions.height; ++y) {
-                cells ~= Cell(Coordinates(x, y), background, color);
+        } else {
+            for (int x = 0; x < dimensions.width; ++x) {
+                for (int y = 0; y < dimensions.height; ++y) {
+                    cells ~= Cell(Coordinates(x, y), ' ', Color.terminal(), fillColor);
+                }
             }
         }
 

@@ -18,6 +18,7 @@ import horizontaltextalignment;
 import verticaltextalignment;
 import stacklayouttype;
 import renderable.cellcachecontainer;
+import border;
 
 class Canvas {
 	Dimensions dimensions;
@@ -42,7 +43,14 @@ class Canvas {
 
 				foreach (cell; container.cache) {
 					if (cell.coordinates.x == x && cell.coordinates.y == y && !(cellsDrawn.canFind!(cell => cell.coordinates.x == x && cell.coordinates.y == y))) {
-						writef("\x1b[38;2;%s;%s;%sm", cell.color.r, cell.color.g, cell.color.b);
+						if (cell.backgroundColor != Color.terminal()) {
+							writef("\x1b[48;2;%s;%s;%sm", cell.backgroundColor.r, cell.backgroundColor.g, cell.backgroundColor.b);
+						}
+
+						if (cell.contentColor != Color.terminal()) {
+							writef("\x1b[38;2;%s;%s;%sm", cell.contentColor.r, cell.contentColor.g, cell.contentColor.b);
+						}
+
 						write(cell.content);
 						cellsDrawn ~= cell;
 						cellFound = true;
@@ -50,6 +58,7 @@ class Canvas {
 				}
 
 				if (!cellFound) {
+					writef("\x1b[m");
 					write(' ');
 				}
 			}
@@ -60,13 +69,13 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(400, 100));
+	Canvas canvas = new Canvas(Dimensions(60, 60));
 
-	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
+	StackLayout column = new StackLayout(StackLayoutType.row);
 
-	stackLayout.add(new Chart([1, 1, 1, 9, 9, 9, 1, 5, 11, 2, 1, 5, 9, 1, 4, 2, 12, 18, 1, 4, 5, 7, 8], 3, 2, Color.Red));
-	stackLayout.add(new Chart([1, 1, 1, 9, 9, 9, 1, 5, 11, 2, 1, 5, 9, 1, 4, 2, 12, 18, 1, 4, 5, 7, 8], 3, 2, Color.Blue));
+	column.add(new Label(Rect.withFill(Dimensions(20, 20), Color.Blue), "Test", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.terminal()));
+	column.add(new Label(Rect.withFill(Dimensions(20, 10), Color.Red), "Test", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.Black));
 
-	canvas.updateCache(stackLayout, Coordinates(0, 0));
+	canvas.updateCache(column, Coordinates(0, 0));
 	canvas.drawCache();
 }

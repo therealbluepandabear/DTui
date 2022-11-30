@@ -17,7 +17,7 @@ class Label : Renderable {
     Color color;
 
     this(string text, Color color) {
-        this(new Rect(Dimensions(cast(int)(text.length), 1), false, ' ', Color.Red), text, color);
+        this(Rect.empty(Dimensions(cast(int)(text.length), 1)), text, color);
     }
 
     this(Rect rect, string text, Color color) {

@@ -33,7 +33,7 @@ class Chart : Renderable {
 
     override Cell[] render() {
         foreach (indx, num; data) {
-            Rect rect = new Rect(Dimensions(columnWidth, num), false, '*', color);
+            Rect rect = Rect.withFill(Dimensions(columnWidth, num), color);
 
             container.updateCache(rect, Coordinates(cast(int)((indx * columnSpace) + (indx * columnWidth)), dimensions.height - num));
         }
