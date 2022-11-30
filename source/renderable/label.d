@@ -16,25 +16,17 @@ class Label : Renderable {
     VerticalTextAlignment verticalTextAlignment;
     Color color;
 
-    this(string text, Color color) {
-        this(Rect.empty(Dimensions(cast(int)(text.length), 1)), text, color);
+    this(string text, Color color = Color.terminal()) {
+        this(Rect.empty(Dimensions(cast(int)(text.length), 1)), text, HorizontalTextAlignment.center, VerticalTextAlignment.center, color);
     }
 
-    this(Rect rect, string text, Color color) {
-        this(rect, text, HorizontalTextAlignment.left, color);
-    }
-
-    this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment, Color color) {
-        this(rect, text, horizontalTextAlignment, VerticalTextAlignment.top, color);
-    }
-
-    this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment, VerticalTextAlignment verticalTextAlignment, Color color) {
+    this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.center, VerticalTextAlignment verticalTextAlignment = VerticalTextAlignment.center, Color color = Color.terminal()) {
         this.dimensions = rect.dimensions;
         this.rect = rect;
         this.text = text;
+        this.color = color;
         this.horizontalTextAlignment = horizontalTextAlignment;
         this.verticalTextAlignment = verticalTextAlignment;
-        this.color = color;
     }
 
     override Cell[] render()  {

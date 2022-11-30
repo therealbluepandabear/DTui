@@ -78,4 +78,7 @@ void main() {
 
 	canvas.updateCache(column, Coordinates(0, 0));
 	canvas.drawCache();
+
+	writeln("bold");
+	writeln("\x1b[9mbold");
 }
