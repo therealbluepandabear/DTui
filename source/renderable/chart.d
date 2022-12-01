@@ -22,7 +22,7 @@ class Chart : Renderable {
 
     private CellCacheContainer container;
 
-    this(int[] data, int columnWidth, int columnSpace, Color color) {
+    this(int[] data, int columnWidth, int columnSpace, Color color = Color.White) {
         this.dimensions = Dimensions(cast(int)((data.length * columnSpace) + (data.length * columnWidth) - columnSpace), data.maxElement);
         this.data = data;
         this.columnWidth = columnWidth;

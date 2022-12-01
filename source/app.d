@@ -18,6 +18,7 @@ import horizontaltextalignment;
 import verticaltextalignment;
 import stacklayouttype;
 import renderable.cellcachecontainer;
+import std.random;
 
 class Canvas {
 	Dimensions dimensions;
@@ -68,16 +69,9 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(60, 60));
+	Canvas canvas = new Canvas(Dimensions(100, 100));
 
-	StackLayout column = new StackLayout(StackLayoutType.row);
+	canvas.updateCache(new Chart([2, 3, 4], 1, 3, Color.terminal()), Coordinates(0, 0));
 
-	column.add(new Label(Rect.withFill(Dimensions(20, 20), Color.Blue), "Test", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.terminal()));
-	column.add(new Label(Rect.withFill(Dimensions(20, 10), Color.Red), "Test", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.Black));
-
-	canvas.updateCache(column, Coordinates(0, 0));
 	canvas.drawCache();
-
-	writeln("bold");
-	writeln("\x1b[9mbold");
 }
