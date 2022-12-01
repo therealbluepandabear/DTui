@@ -16,8 +16,8 @@ class Label : Renderable {
     VerticalTextAlignment verticalTextAlignment;
     Color color;
 
-    this(string text, Color color = Color.terminal()) {
-        this(Rect.empty(Dimensions(cast(int)(text.length), 1)), text, HorizontalTextAlignment.center, VerticalTextAlignment.center, color);
+    this(Rect rect, string text, Color color = Color.terminal()) {
+        this(rect, text, HorizontalTextAlignment.center, VerticalTextAlignment.center, color);
     }
 
     this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.center, VerticalTextAlignment verticalTextAlignment = VerticalTextAlignment.center, Color color = Color.terminal()) {
