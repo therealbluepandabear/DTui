@@ -71,7 +71,13 @@ class Canvas {
 void main() {
 	Canvas canvas = new Canvas(Dimensions(100, 100));
 
-	canvas.updateCache(new Chart([2, 3, 4], 1, 3, Color.terminal()), Coordinates(0, 0));
+	Chart chart = new Chart([2, 3, 4, 9, 3], 3, 3, Color.White, Color.Blue);
+
+	StackLayout column = new StackLayout(StackLayoutType.column);
+	column.add(new Label(Rect.withFill(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hi", HorizontalTextAlignment.center, VerticalTextAlignment.center, Color.Black));
+	column.add(chart);
+
+	canvas.updateCache(column, Coordinates(0, 0));
 
 	canvas.drawCache();
 }
