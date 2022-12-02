@@ -18,16 +18,12 @@ class Table : Renderable {
     int columnWidth;
     int rowHeight;
 
-    private CellCacheContainer container;
-
     this(int columns, int rows, int columnWidth = 7, int rowHeight = 1) {
         this.dimensions = Dimensions((columns * columnWidth) + 1, (rows * rowHeight) + 1);
         this.columns = columns;
         this.rows = rows;
         this.columnWidth = columnWidth;
         this.rowHeight = rowHeight;
-
-        container = new CellCacheContainer();
     }
 
     override Cell[] render() {
