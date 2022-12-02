@@ -46,13 +46,11 @@ class Chart : Renderable {
 
     override Cell[] render() {
         foreach (indx, num; data) {
-            Dimensions dimensions = Dimensions(columnWidth, num);
+            Rect rect = Rect.withFill(Dimensions(columnWidth, num), chartColor);
 
             if (chartType == ChartType.bar) {
-                dimensions = Dimensions(dimensions.height, dimensions.width);
+                rect.dimensions = Dimensions(rect.dimensions.height, rect.dimensions.width);
             }
-
-            Rect rect = Rect.withFill(dimensions, chartColor);
 
             Coordinates coordinates = Coordinates(0, cast(int)((indx * columnSpace) + (indx * columnWidth)));
 
