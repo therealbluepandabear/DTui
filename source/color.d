@@ -71,6 +71,22 @@ struct Color {
         return num;
     }
 
+    private static string doubleToHex(int num) {
+        char[] hex;
+
+        for (int i = num; num != 0; num /= 16) {
+            int remainder = num % 16;
+
+            if (remainder > 9) {
+                hex ~= cast(char)(('A') + (remainder - 10));
+            } else {
+                hex ~= cast(int)(remainder + '0');
+            }
+        }
+
+        return hex.reverse().idup;
+    }
+
     private static bool validateHexColorFormat(ref string hex) {
         if (hex.length == 7 && hex[0] == '#') {
             hex = hex[1..7];
@@ -95,5 +111,33 @@ struct Color {
         int b = Color.hexToDouble(hex[4..6]);
 
         return Color(r, g, b);
+    }
+
+    string toHex(bool printHashtag = true) {
+        string r0 = "";
+
+        if (doubleToHex(r).length < 2) {
+            r0 = "0";
+        }
+
+        string g0 = "";
+
+        if (doubleToHex(g).length < 2) {
+            g0 = "0";
+        }
+
+        string b0 = "";
+
+        if (doubleToHex(b).length < 2) {
+            b0 = "0";
+        }
+
+        string hex = r0 ~ doubleToHex(r) ~ g0 ~ doubleToHex(g) ~ b0 ~ doubleToHex(b);
+
+        if (printHashtag) {
+            return '#' ~ hex;
+        }
+
+        return hex;
     }
 }
