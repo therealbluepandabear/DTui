@@ -73,8 +73,9 @@ void main() {
 
 	Chart chart = new Chart([2, 3, 4, 9, 3], 3, 3, Color.White, Color.Blue);
 
-	StackLayout column = new StackLayout(StackLayoutType.column);
+	StackLayout column = new StackLayout(StackLayoutType.row, 5);
 	column.add(new Label(Rect.withFill(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hi", Color.Black));
+	column.add(chart);
 	column.add(chart);
 
 	canvas.updateCache(column, Coordinates(0, 0));

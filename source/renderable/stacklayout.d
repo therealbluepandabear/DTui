@@ -14,15 +14,16 @@ import stacklayouttype;
 
 class StackLayout : Renderable {
     StackLayoutType stackLayoutType;
+    int spacing;
 
-    // add spacing
     private CellCacheContainer container;
     private Renderable[] children;
 
     private Coordinates cursor = Coordinates(0, 0);
 
-    this(StackLayoutType stackLayoutType) {
+    this(StackLayoutType stackLayoutType, int spacing = 0) {
         this.stackLayoutType = stackLayoutType;
+        this.spacing = spacing;
         container = new CellCacheContainer();
     }
 
@@ -44,9 +45,9 @@ class StackLayout : Renderable {
 
     void updateCursor() {
         if (stackLayoutType == stackLayoutType.row) {
-            cursor = Coordinates(this.dimensions.width, 0);
+            cursor = Coordinates(this.dimensions.width + (cast(int)(children.length) * spacing), 0);
         } else {
-            cursor = Coordinates(0, this.dimensions.height);
+            cursor = Coordinates(0, this.dimensions.height + (cast(int)(children.length) * spacing));
         }
     }
 
