@@ -81,10 +81,10 @@ void main() {
 
 	Chart chart = new Chart(ChartType.column, [2, 3, 4, 9, 3], 1, 3, Color.White, Color.Red);
 
-	StackLayout column = new StackLayout(StackLayoutType.row, 5);
-	column.add(new Label(Rect.withFill(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hii", Color.Black));
+	StackLayout column = new StackLayout(StackLayoutType.row, 5, Color.Blue);
+	column.add(new Label(Rect.withFill(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hiihj", Color.Black));
 	column.add(chart);
-	column.add(chart);
+	column.add(column);
 
 	canvas.updateCache(column, Coordinates(0, 0));
 

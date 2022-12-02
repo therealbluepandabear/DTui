@@ -15,15 +15,17 @@ import stacklayouttype;
 class StackLayout : Renderable {
     StackLayoutType stackLayoutType;
     int spacing;
+    Color backgroundColor;
 
     private CellCacheContainer container;
     private Renderable[] children;
 
     private Coordinates cursor = Coordinates(0, 0);
 
-    this(StackLayoutType stackLayoutType, int spacing = 0) {
+    this(StackLayoutType stackLayoutType, int spacing = 0, Color backgroundColor = Color.terminal()) {
         this.stackLayoutType = stackLayoutType;
         this.spacing = spacing;
+        this.backgroundColor = backgroundColor;
         container = new CellCacheContainer();
     }
 
@@ -52,6 +54,10 @@ class StackLayout : Renderable {
     }
 
     override Cell[] render() {
+        if (backgroundColor != Color.terminal()) {
+            container.updateCache(Rect.withFill(this.dimensions, this.backgroundColor), Coordinates(0, 0));
+        }
+
         return container.cache;
     }
 }
