@@ -23,11 +23,13 @@ import charttype;
 
 class Canvas {
 	Dimensions dimensions;
+	Color backgroundColor;
 
 	private CellCacheContainer container;
 
-	this(Dimensions dimensions) {
+	this(Dimensions dimensions, Color backgroundColor = Color.terminal()) {
 		this.dimensions = dimensions;
+		this.backgroundColor = backgroundColor;
 		container = new CellCacheContainer();
 	}
 
@@ -59,7 +61,12 @@ class Canvas {
 				}
 
 				if (!cellFound) {
-					writef("\x1b[m");
+					if (backgroundColor == Color.terminal()) {
+						writef("\x1b[m");
+					} else {
+						writef("\x1b[48;2;%s;%s;%sm", backgroundColor.r, backgroundColor.g, backgroundColor.b);
+					}
+
 					write(' ');
 				}
 			}
@@ -70,7 +77,7 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(100, 100));
+	Canvas canvas = new Canvas(Dimensions(100, 100), Color.Yellow);
 
 	Chart chart = new Chart(ChartType.column, [2, 3, 4, 9, 3], 1, 3, Color.White, Color.Red);
 
