@@ -8,7 +8,6 @@ import color;
 import cell;
 import std.stdio;
 import std.algorithm;
-import orientation;
 import renderable.cellcachecontainer;
 import stacklayouttype;
 

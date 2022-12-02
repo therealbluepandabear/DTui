@@ -13,7 +13,6 @@ import renderable.rect;
 import renderable.label;
 import renderable.chart;
 import renderable.stacklayout;
-import orientation;
 import horizontaltextalignment;
 import verticaltextalignment;
 import stacklayouttype;
@@ -77,12 +76,12 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(100, 100), Color.Yellow);
+	Canvas canvas = new Canvas(Dimensions(100, 30), Color.Yellow);
 
 	Chart chart = new Chart(ChartType.column, [2, 3, 4, 9, 3], 1, 3, Color.White, Color.Red);
 
 	StackLayout column = new StackLayout(StackLayoutType.row, 5, Color.Blue);
-	column.add(new Label(Rect.withFill(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hiihj", Color.Black));
+	column.add(new Label(Rect.withFrame(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hiihj", Color.Black));
 	column.add(chart);
 	column.add(column);
 
