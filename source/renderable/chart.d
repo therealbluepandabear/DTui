@@ -13,8 +13,10 @@ import std.algorithm;
 import renderable.stacklayout;
 import stacklayouttype;
 import renderable.cellcachecontainer;
+import charttype;
 
 class Chart : Renderable {
+    ChartType chartType;
     int[] data;
     int columnWidth;
     int columnSpace;
@@ -23,21 +25,42 @@ class Chart : Renderable {
 
     private CellCacheContainer container;
 
-    this(int[] data, int columnWidth, int columnSpace, Color chartColor = Color.White, Color backgroundColor = Color.terminal()) {
-        this.dimensions = Dimensions(cast(int)((data.length * columnSpace) + (data.length * columnWidth) - columnSpace), data.maxElement);
+    this(ChartType chartType, int[] data, int columnWidth, int columnSpace, Color chartColor = Color.White, Color backgroundColor = Color.terminal()) {
+        Dimensions dimensions = Dimensions(data.maxElement, cast(int)((data.length * columnSpace) + (data.length * columnWidth) - columnSpace));
+
+        if (chartType == ChartType.bar) {
+            this.dimensions = dimensions;
+        } else {
+           this.dimensions = Dimensions(dimensions.height, dimensions.width);
+        }
+
+        this.chartType = chartType;
         this.data = data;
         this.columnWidth = columnWidth;
         this.columnSpace = columnSpace;
         this.chartColor = chartColor;
         this.backgroundColor = backgroundColor;
+
         container = new CellCacheContainer();
     }
 
     override Cell[] render() {
         foreach (indx, num; data) {
-            Rect rect = Rect.withFill(Dimensions(columnWidth, num), chartColor);
+            Dimensions dimensions = Dimensions(columnWidth, num);
 
-            container.updateCache(rect, Coordinates(cast(int)((indx * columnSpace) + (indx * columnWidth)), dimensions.height - num));
+            if (chartType == ChartType.bar) {
+                dimensions = Dimensions(dimensions.height, dimensions.width);
+            }
+
+            Rect rect = Rect.withFill(dimensions, chartColor);
+
+            Coordinates coordinates = Coordinates(0, cast(int)((indx * columnSpace) + (indx * columnWidth)));
+
+            if (chartType == ChartType.bar) {
+                container.updateCache(rect, coordinates);
+            } else {
+                container.updateCache(rect, Coordinates(coordinates.y, this.dimensions.height - num));
+            }
         }
 
         if (backgroundColor != Color.terminal()) {
