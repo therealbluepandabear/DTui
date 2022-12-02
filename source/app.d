@@ -19,6 +19,7 @@ import stacklayouttype;
 import renderable.cellcachecontainer;
 import std.random;
 import charttype;
+import renderable.table;
 
 class Canvas {
 	Dimensions dimensions;
@@ -76,18 +77,15 @@ class Canvas {
 }
 
 void main() {
-	//Canvas canvas = new Canvas(Dimensions(100, 30), Color.Yellow);
-	//
-	//Chart chart = new Chart(ChartType.column, [2, 3, 4, 9, 3], 1, 3, Color.White, Color.Red);
-	//
-	//StackLayout column = new StackLayout(StackLayoutType.row, 5, Color.Blue);
-	//column.add(new Label(Rect.withFrame(Dimensions(chart.dimensions.width, 3), Color.Gray), "Hiihj", Color.Black));
-	//column.add(chart);
-	//column.add(column);
-	//
-	//canvas.updateCache(column, Coordinates(0, 0));
-	//
-	//canvas.drawCache();
+	Canvas canvas = new Canvas(Dimensions(100, 100));
+	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
 
-	writeln(Color(255,2,244).toHex());
+	Table table = new Table(5, 9);
+
+	stackLayout.add(table);
+	stackLayout.add(table);
+
+	canvas.updateCache(stackLayout, Coordinates(0, 0));
+
+	canvas.drawCache();
 }
