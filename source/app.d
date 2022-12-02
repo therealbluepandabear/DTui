@@ -77,12 +77,11 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(100, 100));
+	Canvas canvas = new Canvas(Dimensions(300, 300));
 	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
 
-	Table table = new Table(5, 9);
+	Table table = new Table(33, 33, Color.Red);
 
-	stackLayout.add(table);
 	stackLayout.add(table);
 
 	canvas.updateCache(stackLayout, Coordinates(0, 0));

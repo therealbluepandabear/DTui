@@ -17,13 +17,19 @@ class Table : Renderable {
     int rows;
     int columnWidth;
     int rowHeight;
+    Color tableColor;
 
-    this(int columns, int rows, int columnWidth = 7, int rowHeight = 1) {
+    this(int columns, int rows, Color tableColor) {
+        this(columns, rows, 7, 1, tableColor);
+    }
+
+    this(int columns, int rows, int columnWidth = 7, int rowHeight = 1, Color tableColor = Color.terminal()) {
         this.dimensions = Dimensions((columns * columnWidth) + 1, (rows * rowHeight) + 1);
         this.columns = columns;
         this.rows = rows;
         this.columnWidth = columnWidth;
         this.rowHeight = rowHeight;
+        this.tableColor = tableColor;
     }
 
     override Cell[] render() {
@@ -32,7 +38,7 @@ class Table : Renderable {
         for (int y = 0; y < this.dimensions.height; ++y) {
             for (int x = 0; x < this.dimensions.width; ++x) {
                 if ((x % this.columnWidth == 0) && (y % this.rowHeight != 0)) {
-                    cells ~= Cell(Coordinates(x, y), '│', Color.White);
+                    cells ~= Cell(Coordinates(x, y), '│', this.tableColor);
                 }
 
                 if (y % rowHeight == 0) {
@@ -60,7 +66,7 @@ class Table : Renderable {
                         content = '─';
                     }
 
-                    cells ~= Cell(Coordinates(x, y), content, Color.White);
+                    cells ~= Cell(Coordinates(x, y), content, this.tableColor);
                 }
             }
         }
