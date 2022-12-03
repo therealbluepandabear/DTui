@@ -5,7 +5,7 @@ import color;
 
 struct Cell {
     Coordinates coordinates;
-    wchar content;
+    dchar content;
     Color contentColor;
     Color backgroundColor = Color.terminal();
 }
