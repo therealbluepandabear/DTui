@@ -77,14 +77,15 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(300, 300));
+	Canvas canvas = new Canvas(Dimensions(80, 50));
 	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
 
-	Table table = new Table(33, 33, Color.Red);
+	Table table = new Table(10, 10, Color.Red);
 
+	// tree control... calendar control... hyperlink
 	stackLayout.add(table);
 
-	canvas.updateCache(stackLayout, Coordinates(0, 0));
+	canvas.updateCache(Rect.withFill(Dimensions.block(5, 5), Color.Red), Coordinates.block(3, 3));
 
 	canvas.drawCache();
 }
