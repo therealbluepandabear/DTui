@@ -68,6 +68,7 @@ class Canvas {
 					}
 
 					write(' ');
+					writef("\x1b[m");
 				}
 			}
 
@@ -77,7 +78,7 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(80, 50));
+	Canvas canvas = new Canvas(Dimensions(20, 30), Color.Yellow);
 	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
 
 	Table table = new Table(10, 10, Color.Red);
@@ -85,6 +86,7 @@ void main() {
 	// tree control... calendar control... hyperlink
 	stackLayout.add(table);
 
+	canvas.updateCache(Rect.withFill(Dimensions.block(4, 4), Color.Blue), Coordinates.block(3, 3));
 	canvas.updateCache(Rect.withFill(Dimensions.block(5, 5), Color.Red), Coordinates.block(3, 3));
 
 	canvas.drawCache();
