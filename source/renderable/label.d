@@ -8,6 +8,7 @@ import dimensions;
 import horizontaltextalignment;
 import verticaltextalignment;
 import renderable.rect;
+import std.stdio;
 
 class Label : Renderable {
     Rect rect;
@@ -24,7 +25,7 @@ class Label : Renderable {
         this(rect, text, horizontalTextAlignment, VerticalTextAlignment.center, color);
     }
 
-    this(Rect rect, string text, Color color = Color.terminal()) {
+    this(Rect rect, string text, Color color) {
         this(rect, text, HorizontalTextAlignment.center, VerticalTextAlignment.center, color);
     }
 
@@ -40,7 +41,9 @@ class Label : Renderable {
     override Cell[] render()  {
         Cell[] cells;
 
-        foreach (pos, character; text) {
+        int pos = 0;
+
+        foreach (dchar character; text) {
             long x;
             long y;
 
@@ -60,7 +63,9 @@ class Label : Renderable {
                 y = dimensions.height - 1;
             }
 
-            cells ~= Cell(Coordinates(cast(int)x, cast(int)y), text[pos], color);
+            cells ~= Cell(Coordinates(cast(int)x, cast(int)y), character, color);
+
+            ++pos;
         }
 
         cells ~= rect.render();

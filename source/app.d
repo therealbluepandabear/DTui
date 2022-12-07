@@ -20,6 +20,7 @@ import renderable.cellcachecontainer;
 import std.random;
 import charttype;
 import renderable.table;
+import renderable.tree;
 
 class Canvas {
 	Dimensions dimensions;
@@ -78,16 +79,9 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(20, 30), Color.Yellow);
-	StackLayout stackLayout = new StackLayout(StackLayoutType.row);
+	Canvas canvas = new Canvas(Dimensions(200, 200));
 
-	Table table = new Table(10, 10, Color.Red);
-
-	// tree control... calendar control... hyperlink
-	stackLayout.add(table);
-
-	canvas.updateCache(Rect.withFill(Dimensions.block(4, 4), Color.Blue), Coordinates.block(3, 3));
-	canvas.updateCache(Rect.withFill(Dimensions.block(5, 5), Color.Red), Coordinates.block(3, 3));
+	canvas.updateCache(new Tree(Dimensions(100, 100), Node("Lmao", Node(), Node(Node(), Node(), Node(Node(Node(Node())))))), Coordinates(0, 0));
 
 	canvas.drawCache();
 }

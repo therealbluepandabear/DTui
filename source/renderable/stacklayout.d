@@ -21,6 +21,10 @@ class StackLayout : Renderable {
 
     private Coordinates cursor = Coordinates(0, 0);
 
+    this(StackLayoutType stackLayoutType, Color backgroundColor) {
+        this(stackLayoutType, 0, backgroundColor);
+    }
+
     this(StackLayoutType stackLayoutType, int spacing = 0, Color backgroundColor = Color.terminal()) {
         this.stackLayoutType = stackLayoutType;
         this.spacing = spacing;

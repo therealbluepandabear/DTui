@@ -1,0 +1,92 @@
+module renderable.tree;
+
+import app;
+import renderable.rect;
+import renderable.renderable;
+import coordinates;
+import color;
+import cell;
+import std.stdio;
+import std.algorithm;
+import renderable.cellcachecontainer;
+import stacklayouttype;
+import std.format;
+import dimensions;
+import renderable.label;
+import renderable.rect;
+import stacklayouttype;
+import renderable.stacklayout;
+import horizontaltextalignment;
+import verticaltextalignment;
+import std.conv;
+
+struct Node {
+    string label = "Node";
+    Node[] children;
+
+    protected int level = 0;
+
+    this(string label, Node[] children...) {
+        this(children);
+        this.label = label;
+    }
+
+    this(Node[] children...) {
+        this.children = children;
+    }
+}
+
+private static class NodeLevelAssigner {
+    static void assignLevel(Node node) {
+        foreach (ref child; node.children) {
+            child.level = node.level + 1;
+            assignLevel(child);
+        }
+    }
+}
+
+class Tree : Renderable {
+    Node rootNode;
+
+    private StackLayout column;
+
+    this(Dimensions dimensions, Node rootNode) {
+        this.dimensions = dimensions;
+
+        this.rootNode = rootNode;
+        NodeLevelAssigner.assignLevel(this.rootNode);
+
+        column = new StackLayout(StackLayoutType.column);
+    }
+
+    private void printTree(Node root) {
+        foreach (indx, child; root.children) {
+            string labelText;
+
+            for (int i = 0; i < child.level; ++i) {
+                labelText ~= "  ";
+
+                if (i == (child.level - 1)) {
+                    if (indx == (root.children.length - 1)) {
+                        labelText ~= "└";
+                    } else {
+                        labelText ~= "├";
+                    }
+
+                    labelText ~= " ";
+                    labelText ~= child.label;
+                }
+            }
+
+            column.add(new Label(Rect.empty(Dimensions(cast(int)(labelText.length) - 4, 1)), labelText.idup));
+
+            printTree(child);
+        }
+    }
+
+    override Cell[] render() {
+        column.add(new Label(Rect.empty(Dimensions(cast(int)(rootNode.label.length), 1)), rootNode.label));
+        printTree(rootNode);
+        return column.render();
+    }
+}
