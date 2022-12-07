@@ -79,9 +79,14 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimensions(200, 200));
+	Canvas canvas = new Canvas(Dimensions(300, 300));
 
-	canvas.updateCache(new Tree(Dimensions(100, 100), Node("Lmao", Node(), Node(Node(), Node(), Node(Node(Node(Node())))))), Coordinates(0, 0));
+	StackLayout row = new StackLayout(StackLayoutType.row);
+
+	row.add(new Tree(Node("Lmao", Node(), Node(Node(), Node(), Node(Node(Node(Node())))), Node(), Node())));
+	row.add(new Tree(Node("Lmao", Node(), Node(Node(), Node(), Node(Node(Node(Node())))), Node(), Node())));
+
+	canvas.updateCache(row, Coordinates(0, 0));
 
 	canvas.drawCache();
 }

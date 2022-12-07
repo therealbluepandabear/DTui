@@ -50,8 +50,8 @@ class Tree : Renderable {
 
     private StackLayout column;
 
-    this(Dimensions dimensions, Node rootNode) {
-        this.dimensions = dimensions;
+    this(Node rootNode) {
+        this.dimensions = Dimensions();
         this.rootNode = rootNode;
 
         NodeLevelAssigner.assignLevel(this.rootNode);
@@ -77,7 +77,15 @@ class Tree : Renderable {
                 }
             }
 
-            column.add(new Label(Rect.empty(Dimensions(cast(int)(labelText.length) - 4, 1)), labelText.idup));
+            int len = cast(int)(labelText.length) - 4;
+
+            ++this.dimensions.height;
+
+            if (len > this.dimensions.width) {
+                this.dimensions.width = len;
+            }
+
+            column.add(new Label(Rect.empty(Dimensions(len, 1)), labelText.idup));
 
             printTree(child);
         }
