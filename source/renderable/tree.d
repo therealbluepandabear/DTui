@@ -52,8 +52,8 @@ class Tree : Renderable {
 
     this(Dimensions dimensions, Node rootNode) {
         this.dimensions = dimensions;
-
         this.rootNode = rootNode;
+
         NodeLevelAssigner.assignLevel(this.rootNode);
 
         column = new StackLayout(StackLayoutType.column);
@@ -73,8 +73,7 @@ class Tree : Renderable {
                         labelText ~= "├";
                     }
 
-                    labelText ~= " ";
-                    labelText ~= child.label;
+                    labelText ~= (" " ~ child.label);
                 }
             }
 
