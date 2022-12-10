@@ -41,6 +41,7 @@ class Rect : Renderable {
 
         rect.dimensions = dimensions;
         rect.rectType = RectType.empty;
+        rect.fillColor = Color.terminal();
 
         return rect;
     }
