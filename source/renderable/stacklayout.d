@@ -48,6 +48,12 @@ class StackLayout : Renderable {
         updateCursor();
     }
 
+    void add(Renderable[] renderableArr...) {
+        foreach (renderable; renderableArr) {
+            add(renderable);
+        }
+    }
+
     void updateCursor() {
         if (stackLayoutType == stackLayoutType.row) {
             cursor = Coordinates(this.dimensions.width + (cast(int)(children.length) * spacing), 0);
