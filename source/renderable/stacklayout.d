@@ -29,6 +29,7 @@ class StackLayout : Renderable {
         this.stackLayoutType = stackLayoutType;
         this.spacing = spacing;
         this.backgroundColor = backgroundColor;
+
         container = new CellCacheContainer();
     }
 
@@ -50,6 +51,12 @@ class StackLayout : Renderable {
 
     void add(Renderable[] renderableArr...) {
         foreach (renderable; renderableArr) {
+            add(renderable);
+        }
+    }
+
+    void add(Renderable renderable, int dup) {
+        for (int i = 0; i < 4; ++i) {
             add(renderable);
         }
     }

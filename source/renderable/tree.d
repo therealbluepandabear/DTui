@@ -48,18 +48,14 @@ private static class NodeLevelAssigner {
 class Tree : Renderable {
     Node rootNode;
 
-    private StackLayout column;
-
     this(Node rootNode) {
         this.dimensions = Dimensions();
         this.rootNode = rootNode;
 
         NodeLevelAssigner.assignLevel(this.rootNode);
-
-        column = new StackLayout(StackLayoutType.column);
     }
 
-    private void printTree(Node root) {
+    private void printTree(Node root, StackLayout column) {
         foreach (indx, child; root.children) {
             string labelText;
 
@@ -87,13 +83,16 @@ class Tree : Renderable {
 
             column.add(new Label(Rect.empty(Dimensions(len, 1)), labelText.idup));
 
-            printTree(child);
+            printTree(child, column);
         }
     }
 
     override Cell[] render() {
+        StackLayout column = new StackLayout(StackLayoutType.column);
+
         column.add(new Label(Rect.empty(Dimensions(cast(int)(rootNode.label.length), 1)), rootNode.label));
-        printTree(rootNode);
+        printTree(rootNode, column);
+
         return column.render();
     }
 }
