@@ -56,7 +56,7 @@ class StackLayout : Renderable {
     }
 
     void add(Renderable renderable, int dup) {
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < dup; ++i) {
             add(renderable);
         }
     }
