@@ -2,10 +2,10 @@ module renderable.chart;
 
 import renderable.renderable;
 import color;
-import coordinates;
+import coordinate;
 import cell;
 import renderable.renderable;
-import dimensions;
+import dimension;
 import horizontaltextalignment;
 import verticaltextalignment;
 import renderable.rect;
@@ -26,12 +26,12 @@ class Chart : Renderable {
     private CellCacheContainer container;
 
     this(ChartType chartType, int[] data, int columnWidth, int columnSpace, Color chartColor = Color.White, Color backgroundColor = Color.terminal()) {
-        Dimensions dimensions = Dimensions(data.maxElement, cast(int)((data.length * columnSpace) + (data.length * columnWidth) - columnSpace));
+        Dimension dimension = Dimension(data.maxElement, cast(int)((data.length * columnSpace) + (data.length * columnWidth) - columnSpace));
 
         if (chartType == ChartType.bar) {
-            this.dimensions = dimensions;
+            this.dimension = dimension;
         } else {
-           this.dimensions = Dimensions(dimensions.height, dimensions.width);
+           this.dimension = Dimension(dimension.height, dimension.width);
         }
 
         this.chartType = chartType;
@@ -46,23 +46,23 @@ class Chart : Renderable {
 
     override Cell[] render() {
         foreach (indx, num; data) {
-            Rect rect = Rect.withFill(Dimensions(columnWidth, num), chartColor);
+            Rect rect = Rect.withFill(Dimension(columnWidth, num), chartColor);
 
             if (chartType == ChartType.bar) {
-                rect.dimensions = Dimensions(rect.dimensions.height, rect.dimensions.width);
+                rect.dimension = Dimension(rect.dimension.height, rect.dimension.width);
             }
 
-            Coordinates coordinates = Coordinates(0, cast(int)((indx * columnSpace) + (indx * columnWidth)));
+            Coordinate coordinates = Coordinate(0, cast(int)((indx * columnSpace) + (indx * columnWidth)));
 
             if (chartType == ChartType.bar) {
                 container.updateCache(rect, coordinates);
             } else {
-                container.updateCache(rect, Coordinates(coordinates.y, this.dimensions.height - num));
+                container.updateCache(rect, Coordinate(coordinates.y, this.dimension.height - num));
             }
         }
 
         if (backgroundColor != Color.terminal()) {
-            container.updateCache(Rect.withFill(Dimensions(dimensions.width, dimensions.height), backgroundColor), Coordinates(0, 0));
+            container.updateCache(Rect.withFill(Dimension(dimension.width, dimension.height), backgroundColor), Coordinate(0, 0));
         }
 
         return container.cache;

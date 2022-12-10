@@ -1,10 +1,10 @@
 module renderable.renderable;
 
-import dimensions;
+import dimension;
 import cell;
 
 abstract class Renderable {
-    Dimensions dimensions;
+    Dimension dimension;
 
     Cell[] render();
 }

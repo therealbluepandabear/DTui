@@ -1,10 +1,10 @@
 module renderable.rect;
 
 import color;
-import coordinates;
+import coordinate;
 import cell;
 import renderable.renderable;
-import dimensions;
+import dimension;
 import std.stdio;
 
 class Rect : Renderable {
@@ -16,30 +16,30 @@ class Rect : Renderable {
     Color fillColor;
     Color frameColor;
 
-    static Rect withFill(Dimensions dimensions, Color fillColor) {
+    static Rect withFill(Dimension dimension, Color fillColor) {
         Rect rect = new Rect();
 
-        rect.dimensions = dimensions;
+        rect.dimension = dimension;
         rect.rectType = RectType.fill;
         rect.fillColor = fillColor;
 
         return rect;
     }
 
-    static Rect withFrame(Dimensions dimensions, Color frameColor) {
+    static Rect withFrame(Dimension dimension, Color frameColor) {
         Rect rect = new Rect();
 
-        rect.dimensions = dimensions;
+        rect.dimension = dimension;
         rect.rectType = RectType.frame;
         rect.frameColor = frameColor;
 
         return rect;
     }
 
-    static Rect empty(Dimensions dimensions) {
+    static Rect empty(Dimension dimension) {
         Rect rect = new Rect();
 
-        rect.dimensions = dimensions;
+        rect.dimension = dimension;
         rect.rectType = RectType.empty;
         rect.fillColor = Color.terminal();
 
@@ -49,8 +49,8 @@ class Rect : Renderable {
     override Cell[] render() {
         Cell[] cells;
 
-        Coordinates from = Coordinates(0, 0);
-        Coordinates to = Coordinates(dimensions.width - 1, dimensions.height - 1);
+        Coordinate from = Coordinate(0, 0);
+        Coordinate to = Coordinate(dimension.width - 1, dimension.height - 1);
 
         if (rectType != RectType.empty && rectType != RectType.fill) {
             for (int x = from.x; x <= to.x; ++x) {
@@ -74,8 +74,8 @@ class Rect : Renderable {
                         content2 = '─';
                     }
 
-                    cells ~= Cell(Coordinates(x, to.y), content1, frameColor);
-                    cells ~= Cell(Coordinates(x, from.y), content2, frameColor);
+                    cells ~= Cell(Coordinate(x, to.y), content1, frameColor);
+                    cells ~= Cell(Coordinate(x, from.y), content2, frameColor);
                 } else {
 
                 }
@@ -85,16 +85,16 @@ class Rect : Renderable {
                 if (rectType == RectType.frame) {
                     wchar content = '│';
 
-                    cells ~= Cell(Coordinates(from.x, y), content, frameColor);
-                    cells ~= Cell(Coordinates(to.x, y), content, frameColor);
+                    cells ~= Cell(Coordinate(from.x, y), content, frameColor);
+                    cells ~= Cell(Coordinate(to.x, y), content, frameColor);
                 } else {
 
                 }
             }
         } else {
-            for (int x = 0; x < dimensions.width; ++x) {
-                for (int y = 0; y < dimensions.height; ++y) {
-                    cells ~= Cell(Coordinates(x, y), ' ', Color.terminal(), fillColor);
+            for (int x = 0; x < dimension.width; ++x) {
+                for (int y = 0; y < dimension.height; ++y) {
+                    cells ~= Cell(Coordinate(x, y), ' ', Color.terminal(), fillColor);
                 }
             }
         }

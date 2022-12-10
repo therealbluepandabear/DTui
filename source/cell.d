@@ -1,10 +1,10 @@
 module cell;
 
-import coordinates;
+import coordinate;
 import color;
 
 struct Cell {
-    Coordinates coordinates;
+    Coordinate coordinates;
     dchar content;
     Color contentColor;
     Color backgroundColor = Color.terminal();

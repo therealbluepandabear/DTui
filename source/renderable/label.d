@@ -1,10 +1,10 @@
 module renderable.label;
 
 import color;
-import coordinates;
+import coordinate;
 import cell;
 import renderable.renderable;
-import dimensions;
+import dimension;
 import horizontaltextalignment;
 import verticaltextalignment;
 import renderable.rect;
@@ -30,7 +30,7 @@ class Label : Renderable {
     }
 
     this(Rect rect, string text, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.center, VerticalTextAlignment verticalTextAlignment = VerticalTextAlignment.center, Color color = Color.terminal()) {
-        this.dimensions = rect.dimensions;
+        this.dimension = rect.dimension;
         this.rect = rect;
         this.text = text;
         this.color = color;
@@ -48,22 +48,22 @@ class Label : Renderable {
             long y;
 
             if (horizontalTextAlignment == HorizontalTextAlignment.center) {
-                x = (dimensions.width / 2 - (text.length / 2)) + pos;
+                x = (dimension.width / 2 - (text.length / 2)) + pos;
             } else if (horizontalTextAlignment == HorizontalTextAlignment.left) {
                 x = pos;
             } else if (horizontalTextAlignment == HorizontalTextAlignment.right) {
-                x = (dimensions.width - text.length) + pos;
+                x = (dimension.width - text.length) + pos;
             }
 
             if (verticalTextAlignment == VerticalTextAlignment.center) {
-                y = dimensions.height / 2;
+                y = dimension.height / 2;
             } else if (verticalTextAlignment == VerticalTextAlignment.top) {
                 y = 0;
             } else if (verticalTextAlignment == VerticalTextAlignment.bottom) {
-                y = dimensions.height - 1;
+                y = dimension.height - 1;
             }
 
-            cells ~= Cell(Coordinates(cast(int)x, cast(int)y), character, color);
+            cells ~= Cell(Coordinate(cast(int)x, cast(int)y), character, color);
 
             ++pos;
         }

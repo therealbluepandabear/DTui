@@ -2,14 +2,14 @@ module renderable.cellcachecontainer;
 
 import cell;
 import renderable.renderable;
-import coordinates;
+import coordinate;
 import std.stdio;
 import std.algorithm;
 
 class CellCacheContainer {
     Cell[] cache;
 
-    void updateCache(Renderable renderable, Coordinates position) {
+    void updateCache(Renderable renderable, Coordinate position) {
         Cell[] renderedCells = renderable.render().dup;
 
         foreach (ref cell; renderedCells) {

@@ -5,8 +5,8 @@ import core.thread.osthread;
 import core.time;
 import std.random;
 import color;
-import coordinates;
-import dimensions;
+import coordinate;
+import dimension;
 import cell;
 import renderable.renderable;
 import renderable.rect;
@@ -23,26 +23,38 @@ import renderable.table;
 import renderable.tree;
 
 class Canvas {
-	Dimensions dimensions;
+	Dimension dimension;
 	Color backgroundColor;
 
+	private bool wrapContent = false;
 	private CellCacheContainer container;
 
-	this(Dimensions dimensions, Color backgroundColor = Color.terminal()) {
-		this.dimensions = dimensions;
+	this(Color backgroundColor = Color.terminal()) {
+		this.wrapContent = true;
+		this(Dimension(1, 1), backgroundColor);
+	}
+
+	this(Dimension dimension, Color backgroundColor = Color.terminal()) {
+		this.dimension = dimension;
 		this.backgroundColor = backgroundColor;
+
 		container = new CellCacheContainer();
 	}
 
-	void updateCache(Renderable renderable, Coordinates position) {
+	void updateCache(Renderable renderable, Coordinate position) {
+		if (wrapContent) {
+			this.dimension.width += renderable.dimension.width;
+			this.dimension.height += renderable.dimension.height;
+		}
+
 		container.updateCache(renderable, position);
 	}
 
 	void drawCache() {
 		Cell[] cellsDrawn;
 
-		for (int y = 0; y < dimensions.height; ++y) {
-			for (int x = 0; x < dimensions.width; ++x) {
+		for (int y = 0; y < dimension.height; ++y) {
+			for (int x = 0; x < dimension.width; ++x) {
 				bool cellFound = false;
 
 				foreach (cell; container.cache) {
@@ -78,15 +90,22 @@ class Canvas {
 	}
 }
 
+// some bugs with stacklayout spacing
 void main() {
-	Canvas canvas = new Canvas(Dimensions(300, 300));
+	Canvas canvas = new Canvas(Dimension(50, 50));
 
-	StackLayout row = new StackLayout(StackLayoutType.row);
+	StackLayout column = new StackLayout(StackLayoutType.column, 1, Color.Blue);
+	column.add(Rect.withFill(Dimension(3, 3), Color.Red), 3);
 
-	row.add(new Tree(Node("Lmao", Node(), Node(Node(), Node(), Node(Node(Node(Node())))), Node(), Node())));
-	row.add(new Tree(Node("Lmao", Node(), Node(Node(), Node(), Node(Node(Node(Node())))), Node(), Node())));
-
-	canvas.updateCache(row, Coordinates(0, 0));
-
+	canvas.updateCache(column, Coordinate(0, 0));
 	canvas.drawCache();
+
+	writeln(column.dimension.height);
 }
+
+//
+//
+
+/**
+Fix wrong dimension for `StackLayout`. Rename `Coordinates` to `Coordinate` and `Dimensions` to `Dimension`. Make `StackLayout`'s `children` field public as it may be useful for those who wish to use this library.
+**/

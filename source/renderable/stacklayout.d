@@ -3,7 +3,7 @@ module renderable.stacklayout;
 import app;
 import renderable.rect;
 import renderable.renderable;
-import coordinates;
+import coordinate;
 import color;
 import cell;
 import std.stdio;
@@ -16,10 +16,11 @@ class StackLayout : Renderable {
     int spacing;
     Color backgroundColor;
 
-    private CellCacheContainer container;
-    private Renderable[] children;
+    Renderable[] children;
 
-    private Coordinates cursor = Coordinates(0, 0);
+    private CellCacheContainer container;
+
+    private Coordinate cursor = Coordinate(0, 0);
 
     this(StackLayoutType stackLayoutType, Color backgroundColor) {
         this(stackLayoutType, 0, backgroundColor);
@@ -38,15 +39,15 @@ class StackLayout : Renderable {
 
         children ~= renderable;
 
-        if (stackLayoutType == stackLayoutType.row) {
-            this.dimensions.width += renderable.dimensions.width;
-            this.dimensions.height = children.maxElement!(child => child.dimensions.height).dimensions.height;
-        } else {
-            this.dimensions.width = children.maxElement!(child => child.dimensions.width).dimensions.width;
-            this.dimensions.height += renderable.dimensions.height;
-        }
-
         updateCursor();
+
+        if (stackLayoutType == StackLayoutType.row) {
+            this.dimension.width = cursor.x - spacing;
+            this.dimension.height = children.maxElement!(child => child.dimension.height).dimension.height;
+        } else {
+            this.dimension.width = children.maxElement!(child => child.dimension.width).dimension.width;
+            this.dimension.height = cursor.y - spacing;
+        }
     }
 
     void add(Renderable[] renderableArr...) {
@@ -62,16 +63,16 @@ class StackLayout : Renderable {
     }
 
     void updateCursor() {
-        if (stackLayoutType == stackLayoutType.row) {
-            cursor = Coordinates(this.dimensions.width + (cast(int)(children.length) * spacing), 0);
+        if (stackLayoutType == StackLayoutType.row) {
+            this.cursor = Coordinate(children.map!(child => child.dimension.width).sum() + (cast(int)(children.length) * spacing), 0);
         } else {
-            cursor = Coordinates(0, this.dimensions.height + (cast(int)(children.length) * spacing));
+            this.cursor = Coordinate(0, children.map!(child => child.dimension.height).sum() + (cast(int)(children.length) * spacing));
         }
     }
 
     override Cell[] render() {
         if (backgroundColor != Color.terminal()) {
-            container.updateCache(Rect.withFill(this.dimensions, this.backgroundColor), Coordinates(0, 0));
+            container.updateCache(Rect.withFill(dimension, backgroundColor), Coordinate(0, 0));
         }
 
         return container.cache;
