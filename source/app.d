@@ -90,7 +90,6 @@ class Canvas {
 	}
 }
 
-// some bugs with stacklayout spacing
 void main() {
 	Canvas canvas = new Canvas(Dimension(50, 50));
 
@@ -102,10 +101,3 @@ void main() {
 
 	writeln(column.dimension.height);
 }
-
-//
-//
-
-/**
-Fix wrong dimension for `StackLayout`. Rename `Coordinates` to `Coordinate` and `Dimensions` to `Dimension`. Make `StackLayout`'s `children` field public as it may be useful for those who wish to use this library.
-**/
