@@ -8,12 +8,13 @@ import std.algorithm;
 import std.format;
 
 struct Color {
-    int r;
-    int g;
-    int b;
+    ubyte r;
+    ubyte g;
+    ubyte b;
+
     private bool isTerminal;
 
-    this(int r, int g, int b) {
+    this(ubyte r, ubyte g, ubyte b) {
         this.r = r;
         this.g = g;
         this.b = b;
@@ -106,9 +107,9 @@ struct Color {
             throw new Exception(format("Invalid format for hex string %s", hex));
         }
 
-        int r = Color.hexToDouble(hex[0..2]);
-        int g = Color.hexToDouble(hex[2..4]);
-        int b = Color.hexToDouble(hex[4..6]);
+        ubyte r = cast(ubyte)Color.hexToDouble(hex[0..2]);
+        ubyte g = cast(ubyte)Color.hexToDouble(hex[2..4]);
+        ubyte b = cast(ubyte)Color.hexToDouble(hex[4..6]);
 
         return Color(r, g, b);
     }
