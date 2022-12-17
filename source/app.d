@@ -5,8 +5,7 @@ import core.thread.osthread;
 import core.time;
 import std.random;
 import color;
-import coordinate;
-import dimension;
+import vector;
 import cell;
 import renderable.renderable;
 import renderable.rect;
@@ -23,7 +22,7 @@ import renderable.table;
 import renderable.tree;
 
 class Canvas {
-	Dimension dimension;
+	Vector dimension;
 	Color backgroundColor;
 
 	private bool wrapContent = false;
@@ -31,20 +30,20 @@ class Canvas {
 
 	this(Color backgroundColor = Color.terminal()) {
 		this.wrapContent = true;
-		this(Dimension(1, 1), backgroundColor);
+		this(Vector(1, 1), backgroundColor);
 	}
 
-	this(Dimension dimension, Color backgroundColor = Color.terminal()) {
+	this(Vector dimension, Color backgroundColor = Color.terminal()) {
 		this.dimension = dimension;
 		this.backgroundColor = backgroundColor;
 
 		container = new CellCacheContainer();
 	}
 
-	void updateCache(Renderable renderable, Coordinate position) {
+	void updateCache(Renderable renderable, Vector position) {
 		if (wrapContent) {
-			this.dimension.width += renderable.dimension.width;
-			this.dimension.height += renderable.dimension.height;
+			this.dimension. x  += renderable.dimension. x ;
+			this.dimension. y  += renderable.dimension. y ;
 		}
 
 		container.updateCache(renderable, position);
@@ -53,8 +52,8 @@ class Canvas {
 	void drawCache() {
 		Cell[] cellsDrawn;
 
-		for (int y = 0; y < dimension.height; ++y) {
-			for (int x = 0; x < dimension.width; ++x) {
+		for (int y = 0; y < dimension. y ; ++y) {
+			for (int x = 0; x < dimension. x ; ++x) {
 				bool cellFound = false;
 
 				foreach (cell; container.cache) {
@@ -91,13 +90,13 @@ class Canvas {
 }
 
 void main() {
-	Canvas canvas = new Canvas(Dimension(50, 50));
+	Canvas canvas = new Canvas(Vector(50, 50));
 
 	StackLayout column = new StackLayout(StackLayoutType.column, 1, Color.Blue);
-	column.add(Rect.withFill(Dimension(3, 3), Color.Red), 3);
+	column.add(Rect.withFill(Vector(3, 3), Color.Red), 3);
 
-	canvas.updateCache(column, Coordinate(0, 0));
+	canvas.updateCache(column, Vector(0, 0));
 	canvas.drawCache();
 
-	writeln(column.dimension.height);
+	writeln(column.dimension.y);
 }

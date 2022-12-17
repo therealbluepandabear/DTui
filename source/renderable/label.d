@@ -1,10 +1,9 @@
 module renderable.label;
 
 import color;
-import coordinate;
+import vector;
 import cell;
 import renderable.renderable;
-import dimension;
 import horizontaltextalignment;
 import verticaltextalignment;
 import renderable.rect;
@@ -48,22 +47,22 @@ class Label : Renderable {
             long y;
 
             if (horizontalTextAlignment == HorizontalTextAlignment.center) {
-                x = (dimension.width / 2 - (text.length / 2)) + pos;
+                x = ((dimension.x / 2) - (text.length / 2)) + pos;
             } else if (horizontalTextAlignment == HorizontalTextAlignment.left) {
                 x = pos;
             } else if (horizontalTextAlignment == HorizontalTextAlignment.right) {
-                x = (dimension.width - text.length) + pos;
+                x = (dimension.x - text.length) + pos;
             }
 
             if (verticalTextAlignment == VerticalTextAlignment.center) {
-                y = dimension.height / 2;
+                y = dimension.y / 2;
             } else if (verticalTextAlignment == VerticalTextAlignment.top) {
                 y = 0;
             } else if (verticalTextAlignment == VerticalTextAlignment.bottom) {
-                y = dimension.height - 1;
+                y = dimension.y - 1;
             }
 
-            cells ~= Cell(Coordinate(cast(int)x, cast(int)y), character, color);
+            cells ~= Cell(Vector(cast(int)x, cast(int)y), character, color);
 
             ++pos;
         }

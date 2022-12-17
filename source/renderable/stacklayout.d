@@ -3,7 +3,7 @@ module renderable.stacklayout;
 import app;
 import renderable.rect;
 import renderable.renderable;
-import coordinate;
+import vector;
 import color;
 import cell;
 import std.stdio;
@@ -19,8 +19,7 @@ class StackLayout : Renderable {
     Renderable[] children;
 
     private CellCacheContainer container;
-
-    private Coordinate cursor = Coordinate(0, 0);
+    private Vector cursor = Vector(0, 0);
 
     this(StackLayoutType stackLayoutType, Color backgroundColor) {
         this(stackLayoutType, 0, backgroundColor);
@@ -42,11 +41,11 @@ class StackLayout : Renderable {
         updateCursor();
 
         if (stackLayoutType == StackLayoutType.row) {
-            this.dimension.width = cursor.x - spacing;
-            this.dimension.height = children.maxElement!(child => child.dimension.height).dimension.height;
+            this.dimension. x  = cursor.x - spacing;
+            this.dimension. y  = children.maxElement!(child => child.dimension. y ).dimension. y ;
         } else {
-            this.dimension.width = children.maxElement!(child => child.dimension.width).dimension.width;
-            this.dimension.height = cursor.y - spacing;
+            this.dimension. x  = children.maxElement!(child => child.dimension. x ).dimension. x ;
+            this.dimension. y  = cursor.y - spacing;
         }
     }
 
@@ -64,15 +63,15 @@ class StackLayout : Renderable {
 
     void updateCursor() {
         if (stackLayoutType == StackLayoutType.row) {
-            this.cursor = Coordinate(children.map!(child => child.dimension.width).sum() + (cast(int)(children.length) * spacing), 0);
+            this.cursor = Vector(children.map!(child => child.dimension. x ).sum() + (cast(int)(children.length) * spacing), 0);
         } else {
-            this.cursor = Coordinate(0, children.map!(child => child.dimension.height).sum() + (cast(int)(children.length) * spacing));
+            this.cursor = Vector(0, children.map!(child => child.dimension. y ).sum() + (cast(int)(children.length) * spacing));
         }
     }
 
     override Cell[] render() {
         if (backgroundColor != Color.terminal()) {
-            container.updateCache(Rect.withFill(dimension, backgroundColor), Coordinate(0, 0));
+            container.updateCache(Rect.withFill(dimension, backgroundColor), Vector(0, 0));
         }
 
         return container.cache;

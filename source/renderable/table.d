@@ -3,14 +3,13 @@ module renderable.table;
 import app;
 import renderable.rect;
 import renderable.renderable;
-import coordinate;
+import vector;
 import color;
 import cell;
 import std.stdio;
 import std.algorithm;
 import renderable.cellcachecontainer;
 import stacklayouttype;
-import dimension;
 
 class Table : Renderable {
     int columns;
@@ -24,7 +23,7 @@ class Table : Renderable {
     }
 
     this(int columns, int rows, int columnWidth = 7, int rowHeight = 1, Color tableColor = Color.terminal()) {
-        this.dimension = Dimension((columns * columnWidth) + 1, (rows * rowHeight) + 1);
+        this.dimension = Vector((columns * columnWidth) + 1, (rows * rowHeight) + 1);
         this.columns = columns;
         this.rows = rows;
         this.columnWidth = columnWidth;
@@ -35,10 +34,10 @@ class Table : Renderable {
     override Cell[] render() {
         Cell[] cells;
 
-        for (int y = 0; y < this.dimension.height; ++y) {
-            for (int x = 0; x < this.dimension.width; ++x) {
+        for (int y = 0; y < this.dimension.y; ++y) {
+            for (int x = 0; x < this.dimension. x ; ++x) {
                 if ((x % this.columnWidth == 0) && (y % this.rowHeight != 0)) {
-                    cells ~= Cell(Coordinate(x, y), '│', this.tableColor);
+                    cells ~= Cell(Vector(x, y), '│', this.tableColor);
                 }
 
                 if (y % rowHeight == 0) {
@@ -46,27 +45,27 @@ class Table : Renderable {
 
                     if ((x == 0) && (y == 0)) {
                         content = '┌';
-                    } else if ((x == this.dimension.width - 1) && (y == 0)) {
+                    } else if ((x == this.dimension. x  - 1) && (y == 0)) {
                         content =  '┐';
-                    } else if ((x == 0) && (y == this.dimension.height - 1)) {
+                    } else if ((x == 0) && (y == this.dimension. y  - 1)) {
                         content = '└';
-                    } else if ((x == this.dimension.width - 1) && (y == this.dimension.height - 1)) {
+                    } else if ((x == this.dimension. x  - 1) && (y == this.dimension. y  - 1)) {
                         content = '┘';
                     } else if ((x == 0) && (y != 0)) {
                         content = '├';
-                    } else if ((x == this.dimension.width - 1) && (y != 0)) {
+                    } else if ((x == this.dimension. x  - 1) && (y != 0)) {
                         content = '┤';
-                    } else if ((x > 0) && (x < this.dimension.width) && (x % this.columnWidth == 0) && (y != 0) && (y < this.dimension.height - 1)) {
+                    } else if ((x > 0) && (x < this.dimension. x ) && (x % this.columnWidth == 0) && (y != 0) && (y < this.dimension. y  - 1)) {
                         content ='┼';
-                    } else if ((x > 0) && (x < this.dimension.width) && (x % this.columnWidth == 0) && (y == 0)) {
+                    } else if ((x > 0) && (x < this.dimension. x ) && (x % this.columnWidth == 0) && (y == 0)) {
                         content = '┬';
-                    } else if ((x > 0) && (x < this.dimension.width) && (x % this.columnWidth == 0))  {
+                    } else if ((x > 0) && (x < this.dimension. x ) && (x % this.columnWidth == 0))  {
                         content = '┴';
                     } else {
                         content = '─';
                     }
 
-                    cells ~= Cell(Coordinate(x, y), content, this.tableColor);
+                    cells ~= Cell(Vector(x, y), content, this.tableColor);
                 }
             }
         }

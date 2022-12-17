@@ -3,7 +3,7 @@ module renderable.tree;
 import app;
 import renderable.rect;
 import renderable.renderable;
-import coordinate;
+import vector;
 import color;
 import cell;
 import std.stdio;
@@ -11,7 +11,6 @@ import std.algorithm;
 import renderable.cellcachecontainer;
 import stacklayouttype;
 import std.format;
-import dimension;
 import renderable.label;
 import renderable.rect;
 import stacklayouttype;
@@ -49,7 +48,7 @@ class Tree : Renderable {
     Node rootNode;
 
     this(Node rootNode) {
-        this.dimension = Dimension();
+        this.dimension = Vector();
         this.rootNode = rootNode;
 
         NodeLevelAssigner.assignLevel(this.rootNode);
@@ -75,13 +74,13 @@ class Tree : Renderable {
 
             int len = cast(int)(labelText.length) - 4;
 
-            ++this.dimension.height;
+            ++dimension.y;
 
-            if (len > this.dimension.width) {
-                this.dimension.width = len;
+            if (len > this.dimension.x) {
+                this.dimension.x = len;
             }
 
-            column.add(new Label(Rect.empty(Dimension(len, 1)), labelText.idup));
+            column.add(new Label(Rect.empty(Vector(len, 1)), labelText.idup));
 
             printTree(child, column);
         }
@@ -90,7 +89,7 @@ class Tree : Renderable {
     override Cell[] render() {
         StackLayout column = new StackLayout(StackLayoutType.column);
 
-        column.add(new Label(Rect.empty(Dimension(cast(int)(rootNode.label.length), 1)), rootNode.label));
+        column.add(new Label(Rect.empty(Vector(cast(int)(rootNode.label.length), 1)), rootNode.label));
         printTree(rootNode, column);
 
         return column.render();
