@@ -6,7 +6,7 @@ struct Vector {
     int x;
     int y;
 
-    string toString() {
+    string toString() const {
         return format("(%s, %s)", x, y);
     }
 
