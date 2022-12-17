@@ -95,7 +95,7 @@ void main() {
 	StackLayout column = new StackLayout(StackLayoutType.column, 1, Color.Blue);
 	column.add(Rect.withFill(Vector(3, 3), Color.Red), 3);
 
-	canvas.updateCache(column, Vector(0, 0));
+	canvas.updateCache(column, Vector(-9, -9));
 	canvas.drawCache();
 
 	writeln(column.dimension);
