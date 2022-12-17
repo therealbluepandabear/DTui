@@ -98,5 +98,5 @@ void main() {
 	canvas.updateCache(column, Vector(0, 0));
 	canvas.drawCache();
 
-	writeln(column.dimension.y);
+	writeln(column.dimension);
 }
